@@ -7,7 +7,7 @@ Any Linux based distro should work. Out test OS is:
 
 Distributor ID: Ubuntu <br/>
 Description:    Ubuntu 18.04.2 LTS <br/>
-Release:        18.04 <br/>
+Release: 	18.04 <br/>
 Codename:       bionic <br/>
 
 'lsb_release -a' on a Ubuntu based system.
@@ -171,9 +171,9 @@ Under the defined project name root directory, four sub-directories are created.
 
    ```bash
    fastq-dump \
-    ${SRA_ID} \
-    --split-files \
-    --origfmt \
+   	${SRA_ID} \
+    	--split-files \
+    	--origfmt \
    	--gzip
    ```
 
@@ -434,15 +434,16 @@ transcriptInfo.tab
    SRR5858228_1_trimmed._STARgenome
    ```
    
-   **SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam** is aligned bam file
+   - **SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam** is aligned bam file
    
-   **SRR5858228_1_trimmed.SJ.out.tab**  is a tab-delimited file that provides information about alignments to splice junctions
+   - **SRR5858228_1_trimmed.SJ.out.tab**  is a tab-delimited file that provides information about alignments to splice junctions
    
-   **Percentage_uniquely_mapped_reads.csv**  file represents the uniquely mapped reads
+   - **Percentage_uniquely_mapped_reads.csv**  file represents the uniquely mapped reads
    
    These three files are as names suggests provides the information about ongoing samples alignment. Out of these file with Log.final.out extension provides the complete mapping stats 	
    
    - **SRR5858228_1_trimmed.Log.final.out**
+   
    - **SRR5858228_1_trimmed.Log.out**
    - **SRR5858228_1_trimmed.Log.progress.out**
    
@@ -546,6 +547,8 @@ transcriptInfo.tab
     `samtools ` is the binary
    
     `index`  will index a coordinate-sorted BAM file for fast random access
+   
+   *Output:* 
    
    This command will index all the bam files and create `.bai` files in the respective **mapping** folder.
    
@@ -656,8 +659,9 @@ transcriptInfo.tab
    `-b` is the input bam file with its path
 
    *Output:* 
+
    Output will be generated in **analysis/quantification/bedtools-count** folder for each file. In the end all the  bedtools generated output files are merged to created final file **Read_per_features_combined.csv** in same folder which will be the input for differential expression analysis.
-   
+
    *Note! For more details about bedtools read section XXX in the book and for parameters check [bedtools](https://bedtools.readthedocs.io/en/latest/)* 
 
    
@@ -673,8 +677,7 @@ transcriptInfo.tab
        -t exon \
        -i gene_id \
       	analysis/mapping/star/SRR5858228_1_trimmed.bam \
-       data/mouse-gencode-version-24/gencode.vM24.annotation.gtf > \
-       analysis/quantification/htseq-count/SRR5858228_1_trimmed_counts.csv
+       data/mouse-gencode-version-24/gencode.vM24.annotation.gtf > \       				analysis/quantification/htseq-count/SRR5858228_1_trimmed_counts.csv
    ```
 
    *Description:*
@@ -748,14 +751,14 @@ transcriptInfo.tab
 
    ```bash
    python2 dexseq_count.py \
-    -p no \
-    -s no \
-    -r name \
-    analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff \
-    -f bam \
-    -a 10 \
-    analysis/mapping/star/SRR5858228_1_trimmed.bam
-    analysis/quantification/dexseq-count/SRR5858228_1_trimmed_exon_counts.csv
+   	-p no \
+       -s no \
+       -r name \
+       analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff \
+       -f bam \
+       -a 10 \
+       analysis/mapping/star/SRR5858228_1_trimmed.bam
+       analysis/quantification/dexseq-count/SRR5858228_1_trimmed_exon_counts.csv
    ```
 
    *Description:*
@@ -832,12 +835,14 @@ transcriptInfo.tab
    qc-heatmap-samples_bedtools.pdf
    vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv
    ```
-   **vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats. The counts are normalized to rlog normalization.
-   **PCA-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-   **diffexpr-maplot_bedtools.pdf** XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-   **pvalue_histogram_50_bedtools.pdf**  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-   **qc-dispersions_bedtools.pdf** XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-   **qc-heatmap-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+   - **vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats. The counts are normalized to rlog normalization.
+
+   - **PCA-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXX
+   - **diffexpr-maplot_bedtools.pdf**  XXXXXXXXXXXXXXXXXX
+   - **pvalue_histogram_50_bedtools.pdf** XXXXXXXXXXXXXXXXXX
+   - **qc-dispersions_bedtools.pdf** XXXXXXXXXXXXXXXXXX
+   - **qc-heatmap-samples_bedtools.pdf **XXXXXXXXXXXXXXXXXX
 
    *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).* 
 
@@ -874,9 +879,9 @@ transcriptInfo.tab
    ma_plot_dexseq.pdf
    ```
 
-   **diffexpr-results_dexseq.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats.
-   **dispersion_plot_dexseq.pdf**
-   **ma_plot_dexseq.pdf**
+   - **diffexpr-results_dexseq.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats.
+   - **dispersion_plot_dexseq.pdf**
+   - **ma_plot_dexseq.pdf**
 
    *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html)*
 
@@ -886,12 +891,12 @@ transcriptInfo.tab
 
    ```bash
    cuffdiff \
-    -o analysis/DE/cuffdiff \
-    -L vt,dt \
-    --FDR 0.01 \
-    -u data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
-    -p 8 \
-    BAMLIST
+   	-o analysis/DE/cuffdiff \
+    	-L vt,dt \
+    	--FDR 0.01 \
+    	-u data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
+    	-p 8 \
+    	BAMLIST
    ```
 
    *Description:*
