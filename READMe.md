@@ -374,7 +374,7 @@ Under the defined project name root directory, four sub-directories are created.
    sjdbInfo.txt
    sjdbList.fromGTF.out.tab
    sjdbList.out.tab
-transcriptInfo.tab
+   transcriptInfo.tab
    ```
 
    *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
@@ -392,7 +392,7 @@ transcriptInfo.tab
     	--readFilesCommand zcat \
     	--sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
     	--outFileNamePrefix /analysis/mapping/star/SRR5858228_1_trimmed  \
- 	--outSAMtype BAM SortedByCoordinate
+ 	   --outSAMtype BAM SortedByCoordinate
    ```
 
    *Description:*
@@ -442,7 +442,6 @@ transcriptInfo.tab
    These three files are as names suggests provides the information about ongoing samples alignment. Out of these file with Log.final.out extension provides the complete mapping stats 	
 
    - **SRR5858228_1_trimmed.Log.final.out**
-
    - **SRR5858228_1_trimmed.Log.out**
    - **SRR5858228_1_trimmed.Log.progress.out**
 
@@ -494,11 +493,11 @@ transcriptInfo.tab
 
    ```bash
    tophat \
-   	-o /analysis/mapping/tophat \
-       -p 8 \
-       -G data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
-       /data/TOPHAT_Genome_Index/GRCm38.p6.genome \
-       reads/filtered_reads/SRR5858228_1_trimmed.gz
+      -o /analysis/mapping/tophat \
+      -p 8 \
+      -G data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
+      /data/TOPHAT_Genome_Index/GRCm38.p6.genome \
+      reads/filtered_reads/SRR5858228_1_trimmed.gz
    ```
 
    *Description:*
@@ -538,7 +537,7 @@ transcriptInfo.tab
 
    ```bash
       samtools \
-      	index analysis/mapping/star/SRR5858228_1_trimmed.bam
+         index analysis/mapping/star/SRR5858228_1_trimmed.bam
    ```
 
    *Description:*
@@ -559,9 +558,9 @@ transcriptInfo.tab
 
    ```bash
       python3 bam_stat.py \
-      	-q 30 \
-          -i analysis/mapping/star/SRR5858228_1_trimmed.bam >  \
-          analysis/mapping/star/SRR5858228_1_trimmed_RSeQC_alignment_stats.txt
+         -q 30 \
+         -i analysis/mapping/star/SRR5858228_1_trimmed.bam >  \
+         analysis/mapping/star/SRR5858228_1_trimmed_RSeQC_alignment_stats.txt
    ```
 
    *Description:*
@@ -635,12 +634,12 @@ transcriptInfo.tab
 
    ```bash
    bedtools intersect \
-   	-S \
-       -wa \
-       -c \
-       -a genes_only.gff3 \
-       -b analysis/mapping/star/SRR5858228_1_trimmed.bam \
-       > analysis/quantification/bedtools-count/SRR5858228_1_trimmed_counts.csv
+      -S \
+      -wa \
+      -c \
+      -a genes_only.gff3 \
+      -b analysis/mapping/star/SRR5858228_1_trimmed.bam \
+      > analysis/quantification/bedtools-count/SRR5858228_1_trimmed_counts.csv
    ```
 
    *Description:*
@@ -670,13 +669,14 @@ transcriptInfo.tab
    ```bash
    htseq-count \
    	-f bam \
-       -a 10 \
-       -m intersect-strict \
-       -s no \
-       -t exon \
-       -i gene_id \
-      	analysis/mapping/star/SRR5858228_1_trimmed.bam \
-       data/mouse-gencode-version-24/gencode.vM24.annotation.gtf > \       				analysis/quantification/htseq-count/SRR5858228_1_trimmed_counts.csv
+      -a 10 \
+      -m intersect-strict \
+      -s no \
+      -t exon \
+      -i gene_id \
+      analysis/mapping/star/SRR5858228_1_trimmed.bam \
+      data/mouse-gencode-version-24/gencode.vM24.annotation.gtf > \
+      analysis/quantification/htseq-count/SRR5858228_1_trimmed_counts.csv
    ```
 
    *Description:*
@@ -706,10 +706,10 @@ transcriptInfo.tab
    ```bash
    cufflinks \
    	-G data/mouse-gencode-version-24/gencode.vM24.annotation.gtf  \
-       -b data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
-       -p 8 \
-       analysis/mapping/star/SRR5858228_1_trimmed.bam \
-       -o analysis/quantification/cufflinks-count
+      -b data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
+      -p 8 \
+      analysis/mapping/star/SRR5858228_1_trimmed.bam \
+      -o analysis/quantification/cufflinks-count
    ```
 
    *Description:*
@@ -741,7 +741,7 @@ transcriptInfo.tab
    ```bash
    python2 dexseq_prepare_annotation.py \
    	data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
-       analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff
+      analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff
    ```
 
    The Python script *dexseq_prepare_annotation.py* takes an GTF file and translates it into a GFF file with collapsed exon counting bins. For more details see Figure 1 of the *[DEXSeq](https://bioconductor.org/packages/3.11/DEXSeq)* paper (Anders, Reyes, and Huber (2012)) for an illustration.
@@ -751,13 +751,13 @@ transcriptInfo.tab
    ```bash
    python2 dexseq_count.py \
    	-p no \
-       -s no \
-       -r name \
-       analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff \
-       -f bam \
-       -a 10 \
-       analysis/mapping/star/SRR5858228_1_trimmed.bam
-       analysis/quantification/dexseq-count/SRR5858228_1_trimmed_exon_counts.csv
+      -s no \
+      -r name \
+      analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff \
+      -f bam \
+      -a 10 \
+      analysis/mapping/star/SRR5858228_1_trimmed.bam
+      analysis/quantification/dexseq-count/SRR5858228_1_trimmed_exon_counts.csv
    ```
 
    *Description:*
@@ -890,7 +890,7 @@ transcriptInfo.tab
 
    ```bash
    cuffdiff \
-   	-o analysis/DE/cuffdiff \
+      -o analysis/DE/cuffdiff \
     	-L vt,dt \
     	--FDR 0.01 \
     	-u data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
@@ -933,5 +933,5 @@ transcriptInfo.tab
 |   |   |-- rawreads_QA_stats
 |   |   |-- filtered_reads
 |   | tools
-|   |   |-- DEXSeq/FastQC/STAR-2.7.3a/bedtools2/bowtie2/cufflinks/cutadapt/htseq/rseqqc               samtools/sratoolkit/tophat
+|   |   |-- DEXSeq/FastQC/STAR-2.7.3a/bedtools2/bowtie2/cufflinks/cutadapt/htseq/rseqqc/samtools/sratoolkit/tophat
 ```
