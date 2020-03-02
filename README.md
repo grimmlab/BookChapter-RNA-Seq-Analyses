@@ -215,21 +215,20 @@ Under the defined project name root directory, four sub-directories are created.
    The `fastqc` tool uses the following parameters:
 
    ```bash
-fastqc \
-   	SRR5858228_1.fastq.gz \
-       -o rawreads_QA_stats
+   fastqc \
+    SRR5858228_1.fastq.gz \
+    -o rawreads_QA_stats
    ```
    
    *Description:*
 
    `fastqc`  is the binary.
-`SRR5858229_1.fasta.gz`  is one example file as an input for quality assessment. This is run in a for loop which will run on all downloaded samples. 
+   `SRR5858229_1.fasta.gz`  is one example file as an input for quality assessment. This is run in a for loop which will run on all downloaded samples. 
    `-o` is path to output directory, here it is `reads_QA_stats` .
    
    *Output:* The `fastq-dump` downloads the following files into the **reads/rawreads_QA_stats** folder: 
-
    ```bash
-~/RNASeq_project/reads/rawreads_QA_stats$ls -1
+   ~/RNASeq_project/reads/rawreads_QA_stats$ls -1
    SRR5858228_1_fastqc.html
    SRR5858228_1_fastqc.zip
    SRR5858229_1_fastqc.html
@@ -249,40 +248,33 @@ fastqc \
    SRR5858236_1_fastqc.html
    SRR5858236_1_fastqc.zip
    ```
-   
    *Note! For more details about fastqc, read section XXX in book and for parameters check [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)*
-
    
-
    <u>_c. Quality control of downloaded data_:</u>
-
-   Based on the assessment of the report quality control (QC) is performed using the  `cutadapt` tool. 
-
+   
+   Based on the assessment of the report quality control (QC) is performed using the  `cutadapt` tool.
    The `cutadapt` tool uses the following parameters:
 
    ```bash
-cutadapt \
+   cutadapt \
    	-q 20 \
-       --minimum-length 35 \
-       -a "CTGTCTCTTATACACATCT" \
-       -o reads/filtered_reads/SRR5858228_1_trimmed.gz \
-       SRR5858229_1.fastq.gz \ #Input file name
-       > SRR5858229_1_cutadapt_stats.txt # Output stats for given file
+    --minimum-length 35 \
+    -a "CTGTCTCTTATACACATCT" \
+    -o reads/filtered_reads/SRR5858228_1_trimmed.gz \
+    SRR5858229_1.fastq.gz \ #Input file name
+    > SRR5858229_1_cutadapt_stats.txt # Output stats for given file
    ```
    *Description:*
    
    `-a`  is the adapter sequence for trimming. 
-
    `--minimum-length`  is the minimum sequence length (35)
-
    `-q` phred score of 20
-
    `-o` is the output file name.
 
    *Output:* The `cutadapt`  will generated trimmed files into the **reads/filtered_reads** folder: 
 
    ```bash
-~/RNASeq_project/reads/filtered_reads$ls -1 
+   ~/RNASeq_project/reads/filtered_reads$ls -1 
    SRR5858228_1_trimmed.gz
    SRR5858229_1_trimmed.gz
    SRR5858230_1_trimmed.gz
