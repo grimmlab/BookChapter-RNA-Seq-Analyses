@@ -833,14 +833,12 @@ transcriptInfo.tab
    qc-heatmap-samples_bedtools.pdf
    vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv
    ```
-
-   **vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats. The counts are normalized to rlog normalization.
-
-   **PCA-samples_bedtools.pdf** ..................................
-   **diffexpr-maplot_bedtools.pdf**  ,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-   **pvalue_histogram_50_bedtools.pdf** .......................
-   **qc-dispersions_bedtools.pdf** .............................
-   **qc-heatmap-samples_bedtools.pdf**,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+   - **vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats. The counts are normalized to rlog normalization.
+   - **PCA-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   - **diffexpr-maplot_bedtools.pdf** XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   - **pvalue_histogram_50_bedtools.pdf**  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   - **qc-dispersions_bedtools.pdf** XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+   - **qc-heatmap-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
    *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).* 
 
