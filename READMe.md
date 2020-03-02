@@ -43,7 +43,7 @@ After cloning the repository, you should have the following files in your repo d
 
 ```bash
 $ls -1
-Rscripts
+Rscripts/
 differential_expression.sh
 download_genome_and_annotation.sh
 download_install_tools.sh
