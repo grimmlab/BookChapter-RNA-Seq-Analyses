@@ -299,224 +299,225 @@ Under the defined project name root directory, four sub-directories are created.
    | Alignment stats           | [*RseQC*](http://rseqc.sourceforge.net/) (f.)                | [*RseQC*](http://rseqc.sourceforge.net/)                     |
    | Visualization             | *IGV* (g.)                                                   | *IGV*                                                        |
 
-  a. <u>Genome indexing using STAR:</u>
-  ```bash
-   STAR \
-    --runThreadN 8 \
-    --runMode genomeGenerate \
-    --genomeDir data/STAR_Genome_Index \
-    --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
-    --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
-   ```
+    a. <u>Genome indexing using STAR:</u>
+    ```bash
+     STAR \
+      --runThreadN 8 \
+      --runMode genomeGenerate \
+      --genomeDir data/STAR_Genome_Index \
+      --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
+      --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
+     ```
 
-   *Description:*
-   `STAR` is the binary
-   ` --runMode`  is set to `genomeGenerate`  which generate genome files
-   ` --genomeDir`  is the path to output directory name
-   `--genomeFastaFiles`  is the path to genome fasta file with file name
-   `--sjdbGTFfile` is the path to the annotation file with file name
-   `--runThreadN` is number of threads (default used is 8) 
-   *Output:* 
-   The `STAR`  genome indexing will generated indexed genome files into the **data/STAR_Genome_Index** folder: 
-   ```bash
-   ~/RNASeq_project/data/STAR_Genome_Index$ls -1 
-   Genome
-   SA
-   SAindex
-   chrLength.txt
-   chrName.txt
-   chrNameLength.txt
-   chrStart.txt
-   exonGeTrInfo.tab
-   exonInfo.tab
-   geneInfo.tab
-   genomeParameters.txt
-   sjdbInfo.txt
-   sjdbList.fromGTF.out.tab
-   sjdbList.out.tab
-   transcriptInfo.tab
-   ```
-   *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
+     *Description:*
+     `STAR` is the binary
+     ` --runMode`  is set to `genomeGenerate`  which generate genome files
+     ` --genomeDir`  is the path to output directory name
+     `--genomeFastaFiles`  is the path to genome fasta file with file name
+     `--sjdbGTFfile` is the path to the annotation file with file name
+     `--runThreadN` is number of threads (default used is 8)
 
-   
-   b. <u>Alignment using STAR:</u>
-   ```bash
-   STAR \
-    --runMode alignReads \
-    --runThreadN 8 \
-    --genomeDir data/STAR_Genome_Index \
-    --readFilesIn reads/filtered_reads/SRR5858228_1_trimmed.gz \
-    --readFilesCommand zcat \
-    --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
-    --outFileNamePrefix /analysis/mapping/star/SRR5858228_1_trimmed  \
- 	  --outSAMtype BAM SortedByCoordinate
-   ```
+     *Output:* 
+     The `STAR`  genome indexing will generated indexed genome files into the **data/STAR_Genome_Index** folder: 
+     ```bash
+     ~/RNASeq_project/data/STAR_Genome_Index$ls -1 
+     Genome
+     SA
+     SAindex
+     chrLength.txt
+     chrName.txt
+     chrNameLength.txt
+     chrStart.txt
+     exonGeTrInfo.tab
+     exonInfo.tab
+     geneInfo.tab
+     genomeParameters.txt
+     sjdbInfo.txt
+     sjdbList.fromGTF.out.tab
+     sjdbList.out.tab
+     transcriptInfo.tab
+     ```
+     *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
 
-   *Description:*
-   `STAR` is the binary
-   `--runMode`  is `alignReads`  which means map reads to the reference genome
-   `--runThreadN` is the number of threads (default used is 8) 
-   `--genomeDir` is the path to genome indexed directory
-   `--readFilesIn` is the path to trimmed reads including file name
-   `--readFilesCommand` for gzipped files (*.gz) use zcat
-   `--sjdbGTFfile` is the path annotation file with file name
-   `--outFileNamePrefix`  is output prefix name with its path
-   `--outSAMtype` is the output sorted by coordinate, similar to samtools sort command.
 
-   *Output:* 
-   The `STAR`  genome alignment will generated in files into the **analysis/mapping/star** folder: 
-   This is the output for one sample, similar files will be generated for other samples as well
-   
-   ```bash
-   ~/RNASeq_project/analysis/mapping/star$ls -1
-   Percentage_uniquely_mapped_reads.csv
-   SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam
-   SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam.bai
-   SRR5858228_1_trimmed.Log.final.out
-   SRR5858228_1_trimmed.Log.out
-   SRR5858228_1_trimmed.Log.progress.out
-   SRR5858228_1_trimmed.SJ.out.tab
-   SRR5858228_1_trimmed._STARgenome
-   ```
-   
-   - **SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam** is aligned bam file
-   - **SRR5858228_1_trimmed.SJ.out.tab**  is a tab-delimited file that provides information about alignments to splice junctions
-   - **Percentage_uniquely_mapped_reads.csv**  file represents the uniquely mapped reads
-   
-   These three files are as names suggests provides the information about ongoing samples alignment. Out of these file with Log.final.out extension provides the complete mapping stats 	
-   - **SRR5858228_1_trimmed.Log.final.out**   
-   - **SRR5858228_1_trimmed.Log.out**
-   - **SRR5858228_1_trimmed.Log.progress.out**
-   *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
-   
-   
-   c. <u>Genome indexing using bowtie for TopHat2:</u>
-   TopHat2 uses bowtie2 (which is gapped aligner) for genome indexing
-   
-   ```bash
-   bowtie2-build \
-   	-f data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
-    /data/TOPHAT_Genome_Index/ \
-   	-p 8
-   ```
-   
-   *Description:*
-   
-   `bowtie2-build` is the binary
-   `-f` is the path to genome fasta file with file name
-   `-p` is to launch a specified number of parallel search threads
-   `TOPHAT_Genome_Index` is the output directory created in **data** folder
-   
-   *Output:* 
-   The `bowtie-build`  genome indexing will generated indexed genome files into the **data/TOPHAT_Genome_Index** folder: 
-   
-   ```bash
-   ~/RNASeq_project/data/TOPHAT_Genome_Index$ls -1 
-   GRCm38.p6.genome.1.bt2
-   GRCm38.p6.genome.2.bt2
-   GRCm38.p6.genome.3.bt2
-   GRCm38.p6.genome.4.bt2
-   GRCm38.p6.genome.fa
-   GRCm38.p6.genome.rev.1.bt2
-   GRCm38.p6.genome.rev.2.bt2
-   ```
-   *Note! Bowtie2 itself is not able to perform spliced alignments. Bowtie2 is known for its speed and small-memory efficiency because it index the reference genome using an FM index which is a [Burrows–Wheeler transform](https://en.wikipedia.org/wiki/Burrows–Wheeler_transform) method. For more detail read section XXXX in the book.*
-   
-   
-   d. <u>Alignment using TopHat2:</u>
-   
-   ```bash
-   tophat \
-   	-o /analysis/mapping/tophat \
-       -p 8 \
-       -G data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
-       /data/TOPHAT_Genome_Index/GRCm38.p6.genome \
-       reads/filtered_reads/SRR5858228_1_trimmed.gz
-   ```
-   
-   *Description:*
-   
-   `tophat` is the binary
-   `-o`  is the name of the directory in which TopHat will write all of its outputs
-   `-p` is the number of threads  to align reads (default used is 8) 
-   `-G` is the path to the annotation file with file name
-   `/data/TOPHAT_Genome_Index/GRCm38.p6.genome` is the path and prefix name of genome fasta file
-   `reads/filtered_reads/SRR5858228_1_trimmed.gz` is the path to trimmed reads including file name
-   
-   *Output:* 
-   The `tophat`  genome alignment will generated in files into the **analysis/mapping/tophat** folder
-   TopHat generated many files as listed below. Here is example output for one SRA ID SRR5858228:
-   - SRR5858228_1_trimmed_accepted_hits.bam  is the alignment bam file. 
-   - SRR5858228_1_trimmed_junctions.bed contains the discovered exon junctions in BED format. A junction consists of two blocks, where   each block is as long as the longest overhang of any read spanning the junction. The score is the number of alignments spanning the junction.
-   - SRR5858228_1_trimmed_insertions.bed contains the discovered insertions. chromLeft refers to the last genomic base before the insertion. 
-   - SRR5858228_1_trimmed_deletions.bed contains the discovered deletions. chromLeft refers to the first genomic base of the deletion. 
-   - SRR5858228_1_trimmed_align_summary.txt reports the alignment rate and how many reads and pairs had multiple alignments.
-   
-   *Note! For more detail read section XXXX in the book* and for parameters check [*TopHat2*](http://ccb.jhu.edu/software/tophat/manual.shtml).
-   
-   
-   e. <u>BAM file indexing for both STAR or TopHat2</u>:
-   
-   ```bash
-   samtools \
-    index analysis/mapping/star/SRR5858228_1_trimmed.bam
-   ```
-   
-   *Description:*
-   `samtools ` is the binary
-   `index`  will index a coordinate-sorted BAM file for fast random access
-   
-   *Output:* 
-   This command will index all the bam files and create `.bai` files in the respective **mapping** folder.
-   *Note! For more detail read section XXXX in the book* and for parameters check [*samtools*](http://samtools.sourceforge.net/).
-   
-      
-   f. <u>Generate stats for alignment</u>:
-   
-   ```bash
-   python3 bam_stat.py \
-    -q 30 \
-    -i analysis/mapping/star/SRR5858228_1_trimmed.bam >  \
-    analysis/mapping/star/SRR5858228_1_trimmed_RSeQC_alignment_stats.txt
-   ```
-   
-   *Description:*
-   `bam_stat.py ` is the python script to calculate bam stats
-   `-i`  input bam file with its path
-   `-q`  is the mapping quality to determine uniquely mapped read
-   RseQC produces table in the respective **mapping** folder where unique reads are considered if their mapping quality is more than 30.
-   
-   *Output:*  
-   **SRR5858228_1_trimmed.Aligned.sortedByCoord.out._RSeQC_alignment_stats.txt** file will be created for SRA sample ID SRR5858228. 
-   
-   #==================================================
-   #All numbers are READ count
-   #==================================================
-   
-   Total records:                          	                               72432644
-   
-   QC failed:                                                                     0
-   Optical/PCR duplicate:                                               0
-   Non primary hits                                                        11660623
-   Unmapped reads:                                                      0
-   mapq < mapq_cut (non-unique):                             5935125
-   
-   mapq >= mapq_cut (unique):              					 54836896
-   Read-1:                                										 0
-   Read-2:                                										 0
-   Reads map to '+':                       								 27245688
-   Reads map to '-':                       								  27591208
-   Non-splice reads:                       								 42688777
-   Splice reads:                           									 12148119
-   Reads mapped in proper pairs:								0
-   Proper-paired reads map to different chrom:		0
-   
-   *Note! For more detail read section XXXX in the book* and for parameters check [*RseQC*](http://rseqc.sourceforge.net/).
-   
-   
-   
-   g. <u>Visualization of alignment (BAM) files</u>:
-   The indexed bam files along with genome and annotation can be loaded into several genome browsers, including the Integrative Genomics Viewer IGV `IGV` . Explaining this is beyond the scope of this chapter and recommend to go through https://software.broadinstitute.org/software/igv/UserGuide. 
+     b. <u>Alignment using STAR:</u>
+     ```bash
+     STAR \
+      --runMode alignReads \
+      --runThreadN 8 \
+      --genomeDir data/STAR_Genome_Index \
+      --readFilesIn reads/filtered_reads/SRR5858228_1_trimmed.gz \
+      --readFilesCommand zcat \
+      --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
+      --outFileNamePrefix /analysis/mapping/star/SRR5858228_1_trimmed  \
+      --outSAMtype BAM SortedByCoordinate
+     ```
+
+     *Description:*
+     `STAR` is the binary
+     `--runMode`  is `alignReads`  which means map reads to the reference genome
+     `--runThreadN` is the number of threads (default used is 8) 
+     `--genomeDir` is the path to genome indexed directory
+     `--readFilesIn` is the path to trimmed reads including file name
+     `--readFilesCommand` for gzipped files (*.gz) use zcat
+     `--sjdbGTFfile` is the path annotation file with file name
+     `--outFileNamePrefix`  is output prefix name with its path
+     `--outSAMtype` is the output sorted by coordinate, similar to samtools sort command.
+
+     *Output:* 
+     The `STAR`  genome alignment will generated in files into the **analysis/mapping/star** folder: 
+     This is the output for one sample, similar files will be generated for other samples as well
+
+     ```bash
+     ~/RNASeq_project/analysis/mapping/star$ls -1
+     Percentage_uniquely_mapped_reads.csv
+     SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam
+     SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam.bai
+     SRR5858228_1_trimmed.Log.final.out
+     SRR5858228_1_trimmed.Log.out
+     SRR5858228_1_trimmed.Log.progress.out
+     SRR5858228_1_trimmed.SJ.out.tab
+     SRR5858228_1_trimmed._STARgenome
+     ```
+
+     - **SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam** is aligned bam file
+     - **SRR5858228_1_trimmed.SJ.out.tab**  is a tab-delimited file that provides information about alignments to splice junctions
+     - **Percentage_uniquely_mapped_reads.csv**  file represents the uniquely mapped reads
+
+     These three files are as names suggests provides the information about ongoing samples alignment. Out of these file with Log.final.out extension provides the complete mapping stats 	
+     - **SRR5858228_1_trimmed.Log.final.out**   
+     - **SRR5858228_1_trimmed.Log.out**
+     - **SRR5858228_1_trimmed.Log.progress.out**
+     *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
+
+
+     c. <u>Genome indexing using bowtie for TopHat2:</u>
+     TopHat2 uses bowtie2 (which is gapped aligner) for genome indexing
+
+     ```bash
+     bowtie2-build \
+      -f data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
+      /data/TOPHAT_Genome_Index/ \
+      -p 8
+     ```
+
+     *Description:*
+
+     `bowtie2-build` is the binary
+     `-f` is the path to genome fasta file with file name
+     `-p` is to launch a specified number of parallel search threads
+     `TOPHAT_Genome_Index` is the output directory created in **data** folder
+
+     *Output:* 
+     The `bowtie-build`  genome indexing will generated indexed genome files into the **data/TOPHAT_Genome_Index** folder: 
+
+     ```bash
+     ~/RNASeq_project/data/TOPHAT_Genome_Index$ls -1 
+     GRCm38.p6.genome.1.bt2
+     GRCm38.p6.genome.2.bt2
+     GRCm38.p6.genome.3.bt2
+     GRCm38.p6.genome.4.bt2
+     GRCm38.p6.genome.fa
+     GRCm38.p6.genome.rev.1.bt2
+     GRCm38.p6.genome.rev.2.bt2
+     ```
+     *Note! Bowtie2 itself is not able to perform spliced alignments. Bowtie2 is known for its speed and small-memory efficiency because it index the reference genome using an FM index which is a [Burrows–Wheeler transform](https://en.wikipedia.org/wiki/Burrows–Wheeler_transform) method. For more detail read section XXXX in the book.*
+
+
+     d. <u>Alignment using TopHat2:</u>
+
+     ```bash
+     tophat \
+      -o /analysis/mapping/tophat \
+         -p 8 \
+         -G data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
+         /data/TOPHAT_Genome_Index/GRCm38.p6.genome \
+         reads/filtered_reads/SRR5858228_1_trimmed.gz
+     ```
+
+     *Description:*
+
+     `tophat` is the binary
+     `-o`  is the name of the directory in which TopHat will write all of its outputs
+     `-p` is the number of threads  to align reads (default used is 8) 
+     `-G` is the path to the annotation file with file name
+     `/data/TOPHAT_Genome_Index/GRCm38.p6.genome` is the path and prefix name of genome fasta file
+     `reads/filtered_reads/SRR5858228_1_trimmed.gz` is the path to trimmed reads including file name
+
+     *Output:* 
+     The `tophat`  genome alignment will generated in files into the **analysis/mapping/tophat** folder
+     TopHat generated many files as listed below. Here is example output for one SRA ID SRR5858228:
+     - SRR5858228_1_trimmed_accepted_hits.bam  is the alignment bam file. 
+     - SRR5858228_1_trimmed_junctions.bed contains the discovered exon junctions in BED format. A junction consists of two blocks, where   each block is as long as the longest overhang of any read spanning the junction. The score is the number of alignments spanning the junction.
+     - SRR5858228_1_trimmed_insertions.bed contains the discovered insertions. chromLeft refers to the last genomic base before the insertion. 
+     - SRR5858228_1_trimmed_deletions.bed contains the discovered deletions. chromLeft refers to the first genomic base of the deletion. 
+     - SRR5858228_1_trimmed_align_summary.txt reports the alignment rate and how many reads and pairs had multiple alignments.
+
+     *Note! For more detail read section XXXX in the book* and for parameters check [*TopHat2*](http://ccb.jhu.edu/software/tophat/manual.shtml).
+
+
+     e. <u>BAM file indexing for both STAR or TopHat2</u>:
+
+     ```bash
+     samtools \
+      index analysis/mapping/star/SRR5858228_1_trimmed.bam
+     ```
+
+     *Description:*
+     `samtools ` is the binary
+     `index`  will index a coordinate-sorted BAM file for fast random access
+
+     *Output:* 
+     This command will index all the bam files and create `.bai` files in the respective **mapping** folder.
+     *Note! For more detail read section XXXX in the book* and for parameters check [*samtools*](http://samtools.sourceforge.net/).
+
+
+     f. <u>Generate stats for alignment</u>:
+
+     ```bash
+     python3 bam_stat.py \
+      -q 30 \
+      -i analysis/mapping/star/SRR5858228_1_trimmed.bam >  \
+      analysis/mapping/star/SRR5858228_1_trimmed_RSeQC_alignment_stats.txt
+     ```
+
+     *Description:*
+     `bam_stat.py ` is the python script to calculate bam stats
+     `-i`  input bam file with its path
+     `-q`  is the mapping quality to determine uniquely mapped read
+     RseQC produces table in the respective **mapping** folder where unique reads are considered if their mapping quality is more than 30.
+
+     *Output:*  
+     **SRR5858228_1_trimmed.Aligned.sortedByCoord.out._RSeQC_alignment_stats.txt** file will be created for SRA sample ID SRR5858228. 
+
+     #==================================================
+     #All numbers are READ count
+     #==================================================
+
+     Total records:                          	                               72432644
+
+     QC failed:                                                                     0
+     Optical/PCR duplicate:                                               0
+     Non primary hits                                                        11660623
+     Unmapped reads:                                                      0
+     mapq < mapq_cut (non-unique):                             5935125
+
+     mapq >= mapq_cut (unique):              					 54836896
+     Read-1:                                										 0
+     Read-2:                                										 0
+     Reads map to '+':                       								 27245688
+     Reads map to '-':                       								  27591208
+     Non-splice reads:                       								 42688777
+     Splice reads:                           									 12148119
+     Reads mapped in proper pairs:								0
+     Proper-paired reads map to different chrom:		0
+
+     *Note! For more detail read section XXXX in the book* and for parameters check [*RseQC*](http://rseqc.sourceforge.net/).
+
+
+
+     g. <u>Visualization of alignment (BAM) files</u>:
+     The indexed bam files along with genome and annotation can be loaded into several genome browsers, including the Integrative Genomics Viewer IGV `IGV` . Explaining this is beyond the scope of this chapter and recommend to go through https://software.broadinstitute.org/software/igv/UserGuide. 
 
 3. ##### **Quantification (quantification.sh)**
 This step will perform quantification on alignment files generated form reference based RNASeq alignment. This can be done by running the shell script:
