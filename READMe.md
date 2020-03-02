@@ -170,22 +170,18 @@ Under the defined project name root directory, four sub-directories are created.
 
    ```bash
    fastq-dump \
-   	${SRA_ID} \
+   ${SRA_ID} \
     --split-files \
     --origfmt \
-   	--gzip
+    --gzip
    ```
 
    *Description:*
 
    `fastq-dump` is the binary
-
-    `${SRA_ID}` are list of fastq files. These SRA  files will be downloaded one at a time
-
-    `--split-files` parameter will produce two reads if the data is paired end else single file
-
+   `${SRA_ID}` are list of fastq files. These SRA  files will be downloaded one at a time
+   `--split-files` parameter will produce two reads if the data is paired end else single file
    `--origfmt`  parameter contains only original sequence name
-
    `--gzip` will provide the compressed output using gzip
 
    *Output:*
@@ -207,8 +203,6 @@ Under the defined project name root directory, four sub-directories are created.
 
    *NOTE! To read more about fastq-dump parameters click [here](https://ncbi.github.io/sra-tools/fastq-dump.html).*
 
-
-
    <u>_b. Quality assessment of downloaded data_:</u>
 
    The downloaded SRA fastq files are then assessed for sequence quality using `fastqc` program.
@@ -217,13 +211,13 @@ Under the defined project name root directory, four sub-directories are created.
 
    ```bash
    fastqc \
-   	SRR5858228_1.fastq.gz \
-       -o rawreads_QA_stats
+      SRR5858228_1.fastq.gz \
+      -o rawreads_QA_stats
    ```
 
    *Description:*
 
-   `fastqc`  is the binary.
+   `fastqc`  is the binary
    `SRR5858229_1.fasta.gz`  is one example file as an input for quality assessment. This is run in a for loop which will run on all downloaded samples.
    `-o` is path to output directory, here it is `reads_QA_stats` .
 
@@ -266,20 +260,17 @@ Under the defined project name root directory, four sub-directories are created.
    ```bash
    cutadapt \
    	-q 20 \
-       --minimum-length 35 \
-       -a "CTGTCTCTTATACACATCT" \
-       -o reads/filtered_reads/SRR5858228_1_trimmed.gz \
-       SRR5858229_1.fastq.gz \ #Input file name
-       > SRR5858229_1_cutadapt_stats.txt # Output stats for given file
+      --minimum-length 35 \
+      -a "CTGTCTCTTATACACATCT" \
+      -o reads/filtered_reads/SRR5858228_1_trimmed.gz \
+      SRR5858229_1.fastq.gz \ #Input file name
+      > SRR5858229_1_cutadapt_stats.txt # Output stats for given file
    ```
    *Description:*
 
    `-a`  is the adapter sequence for trimming.
-
    `--minimum-length`  is the minimum sequence length (35)
-
    `-q` phred score of 20
-
    `-o` is the output file name.
 
    *Output:*
@@ -334,24 +325,19 @@ Under the defined project name root directory, four sub-directories are created.
    ```bash
    STAR \
    	--runThreadN 8 \
-       --runMode genomeGenerate \
-       --genomeDir data/STAR_Genome_Index \
-       --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
-       --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
+      --runMode genomeGenerate \
+      --genomeDir data/STAR_Genome_Index \
+      --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
+      --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
    ```
 
    *Description:*
 
    `STAR` is the binary
-
    ` --runMode`  is set to `genomeGenerate`  which generate genome files
-
    ` --genomeDir`  is the path to output directory name
-
    `--genomeFastaFiles`  is the path to genome fasta file with file name
-
    `--sjdbGTFfile` is the path to the annotation file with file name
-
    `--runThreadN` is number of threads (default used is 8)
 
    *Output:*
@@ -381,6 +367,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 
+
    b. <u>Alignment using STAR:</u>
 
    ```bash
@@ -400,19 +387,12 @@ Under the defined project name root directory, four sub-directories are created.
    `STAR` is the binary
 
    `--runMode`  is `alignReads`  which means map reads to the reference genome
-
    `--runThreadN` is the number of threads (default used is 8)
-
    `--genomeDir` is the path to genome indexed directory
-
    `--readFilesIn` is the path to trimmed reads including file name
-
    `--readFilesCommand` for gzipped files (*.gz) use zcat
-
    `--sjdbGTFfile` is the path annotation file with file name
-
    `--outFileNamePrefix`  is output prefix name with its path
-
    `--outSAMtype` is the output sorted by coordinate, similar to samtools sort command.
 
    *Output:*
@@ -434,13 +414,10 @@ Under the defined project name root directory, four sub-directories are created.
    ```
 
    - **SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam** is aligned bam file
-
    - **SRR5858228_1_trimmed.SJ.out.tab**  is a tab-delimited file that provides information about alignments to splice junctions
-
    - **Percentage_uniquely_mapped_reads.csv**  file represents the uniquely mapped reads
 
    These three files are as names suggests provides the information about ongoing samples alignment. Out of these file with Log.final.out extension provides the complete mapping stats 	
-
    - **SRR5858228_1_trimmed.Log.final.out**
    - **SRR5858228_1_trimmed.Log.out**
    - **SRR5858228_1_trimmed.Log.progress.out**
@@ -456,18 +433,15 @@ Under the defined project name root directory, four sub-directories are created.
    ```bash
    bowtie2-build \
    	-f data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
-       /data/TOPHAT_Genome_Index/ \
+      /data/TOPHAT_Genome_Index/ \
    	-p 8
    ```
 
    *Description:*
 
    `bowtie2-build` is the binary
-
    `-f` is the path to genome fasta file with file name
-
    `-p` is to launch a specified number of parallel search threads
-
    `TOPHAT_Genome_Index` is the output directory created in **data** folder
 
    *Output:*
@@ -503,15 +477,10 @@ Under the defined project name root directory, four sub-directories are created.
    *Description:*
 
    `tophat` is the binary
-
-    `-o`  is the name of the directory in which TopHat will write all of its outputs
-    
+   `-o`  is the name of the directory in which TopHat will write all of its outputs
     `-p` is the number of threads  to align reads (default used is 8)
-
    `-G` is the path to the annotation file with file name
-
    `/data/TOPHAT_Genome_Index/GRCm38.p6.genome` is the path and prefix name of genome fasta file
-
    `reads/filtered_reads/SRR5858228_1_trimmed.gz` is the path to trimmed reads including file name
 
    *Output:*
@@ -537,13 +506,12 @@ Under the defined project name root directory, four sub-directories are created.
 
    ```bash
       samtools \
-         index analysis/mapping/star/SRR5858228_1_trimmed.bam
+      index analysis/mapping/star/SRR5858228_1_trimmed.bam
    ```
 
    *Description:*
 
     `samtools ` is the binary
-    
     `index`  will index a coordinate-sorted BAM file for fast random access
 
    *Output:*
@@ -565,10 +533,8 @@ Under the defined project name root directory, four sub-directories are created.
 
    *Description:*
 
-    `bam_stat.py ` is the python script to calculate bam stats
-
+   `bam_stat.py ` is the python script to calculate bam stats
    `-i`  input bam file with its path
-
    `-q`  is the mapping quality to determine uniquely mapped read
 
    RseQC produces table in the respective **mapping** folder where unique reads are considered if their mapping quality is more than 30.
@@ -644,16 +610,11 @@ Under the defined project name root directory, four sub-directories are created.
 
    *Description:*
 
-    `bedtools` is the binary
-
+   `bedtools` is the binary
    `intersect` allows one to screen for overlaps between two sets of genomic features
-
    `-S`  is require for different strandedness.
-
    `-c`  is for each entry in genomic features A, report the number of hits in genomic features B while restricting to `-f` (-f is  for minimum overlap required as a fraction of A. Default is 1E-9 (i.e. 1bp))
-
    `-a`  is gff annotation file where each genomic features in A is compared to genomic features B in search of overlaps
-
    `-b` is the input bam file with its path
 
    *Output:*
@@ -682,17 +643,11 @@ Under the defined project name root directory, four sub-directories are created.
    *Description:*
 
    `htseq-count` is the binary
-
    `-f`  is the format of the input data.
-
    `-a `  will skip all reads with MAPQ alignment quality lower than the given minimum value (default: 10).
-
    `-m` is mode to handle reads overlapping more than one feature. In this case its `intersect-strict`.
-
    `-s` is set whether the data is from a strand-specific assay. For `stranded=no`, a read is considered overlapping with a feature regardless of whether it is mapped to the same or the opposite strand as the feature
-
    `-t ` is the feature type (3rd column in GFF file) to be used, all features of other type are ignored (default, suitable for RNA-Seq analysis using an [GENCODE GTF](https://www.gencodegenes.org/) file: `exon`)
-
    `-i`  is the attribute to be used as feature ID. The default, suitable for RNA-Seq analysis using an GENCODE GTF file, is `gene_id`.
 
    *Output:*
@@ -715,13 +670,9 @@ Under the defined project name root directory, four sub-directories are created.
    *Description:*
 
    `cufflinks` is the binary
-
    `-G` is the path to the annotation file with file name
-
    `-b` is the path to genome fasta file with file name
-
    `-p` is the number threads
-
    `-o` is the name of the directory in which Cuffdiff will write all of its output
 
    *Output:*
@@ -762,14 +713,10 @@ Under the defined project name root directory, four sub-directories are created.
 
    *Description:*
 
-    `-p`   is to set the paired end information. If the data is from a paired-end sequencing run, you need to add the option `-p yes`
-
+   `-p`   is to set the paired end information. If the data is from a paired-end sequencing run, you need to add the option `-p yes`
    `-s`  If you have used a library preparation protocol that does not preserve  strand information (i.e., reads from a given gene can appear equally  likely on either strand), you need to inform the script by specifying  the option `-s no`
-
    `-r` is to indicate whether your data is sorted by alignment position or by read name
-
    `-f`  input reads format
-
    `-a` to specify the minimum alignment quality. All reads with a lower quality than specified (with default `-a 10`) are skipped.
 
    *Output:*
@@ -816,11 +763,8 @@ Under the defined project name root directory, four sub-directories are created.
    *Description:*
 
    `--genecount`  is combined generated from bedtools or htseq along with its path
-
    `--metadata` is the sample information file
-
    `--condition` is the column in the metadata data file that will be used for pairwise comparision using DESeq2.
-
    `--outputpath` is the path to the output directory where the result table and plots will be generated.
 
    Differentially expressed outfiles for bedtools and HTSeq are generated in **analysis/DE/deseq2/**
@@ -860,11 +804,8 @@ Under the defined project name root directory, four sub-directories are created.
    *Description:*
 
    `--exoncountpath`  is the dexseq generated exon count file path
-
    `--gffFile` is the dexseq generated gff file with its path
-
    `--metadata` is the sample information file
-
    `--outputpath` is the path to the output directory where the result table and plots will be generated.
 
    *Output:*
@@ -901,15 +842,10 @@ Under the defined project name root directory, four sub-directories are created.
    *Description:*
 
    `-o` path to the output folder
-
    `-L` lists the labels to be used as “conditions”
-
    `-FDR `  cutoff for false discovery rate for the DE analysis
-
    `-u`  path to annotation file
-
    `-p` is the number threads
-
    `BAMLIST` is list of all bam file in comma format
 
 
