@@ -208,7 +208,7 @@ Under the defined project name root directory, four sub-directories are created.
    ```bash
    fastqc \
    	SRR5858228_1.fastq.gz \
-       -o rawreads_QA_stats
+    -o rawreads_QA_stats
    ```
    *Description:*
    `fastqc`  is the binary.
@@ -380,9 +380,7 @@ Under the defined project name root directory, four sub-directories are created.
    ```
    
    - **SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam** is aligned bam file
-   
    - **SRR5858228_1_trimmed.SJ.out.tab**  is a tab-delimited file that provides information about alignments to splice junctions
-   
    - **Percentage_uniquely_mapped_reads.csv**  file represents the uniquely mapped reads
    
    These three files are as names suggests provides the information about ongoing samples alignment. Out of these file with Log.final.out extension provides the complete mapping stats 	
@@ -519,10 +517,9 @@ Under the defined project name root directory, four sub-directories are created.
    
    g. <u>Visualization of alignment (BAM) files</u>:
    The indexed bam files along with genome and annotation can be loaded into several genome browsers, including the Integrative Genomics Viewer IGV `IGV` . Explaining this is beyond the scope of this chapter and recommend to go through https://software.broadinstitute.org/software/igv/UserGuide. 
-   
-   
+
 3. ##### **Quantification (quantification.sh)**
-   This step will perform quantification on alignment files generated form reference based RNASeq alignment. This can be done by running the shell script:
+This step will perform quantification on alignment files generated form reference based RNASeq alignment. This can be done by running the shell script:
 
    ```bash
    $./quantification.sh
