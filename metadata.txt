@@ -1,0 +1,10 @@
+Sample	condition
+SRR5858228_1	vehicle_treated
+SRR5858229_1	vehicle_treated
+SRR5858230_1	vehicle_treated
+SRR5858231_1	vehicle_treated
+SRR5858232_1	drug_treated
+SRR5858233_1	drug_treated
+SRR5858234_1	drug_treated
+SRR5858235_1	drug_treated
+SRR5858236_1	drug_treated
