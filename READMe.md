@@ -534,23 +534,23 @@ transcriptInfo.tab
    #All numbers are READ count
    #==================================================
 
-   Total records:                          	                               72432644
-
-   QC failed:                                                                     0
-   Optical/PCR duplicate:                                               0
-   Non primary hits                                                        11660623
-   Unmapped reads:                                                      0
-   mapq < mapq_cut (non-unique):                             5935125
-
-   mapq >= mapq_cut (unique):              					 54836896
-   Read-1:                                										 0
-   Read-2:                                										 0
-   Reads map to '+':                       								 27245688
-   Reads map to '-':                       								  27591208
-   Non-splice reads:                       								 42688777
-   Splice reads:                           									 12148119
-   Reads mapped in proper pairs:								0
-   Proper-paired reads map to different chrom:		0
+   Total records:                          	                               72432644 \\
+\\
+   QC failed:                                                                     0 \\
+   Optical/PCR duplicate:                                               0 \\
+   Non primary hits                                                        11660623 \\
+   Unmapped reads:                                                      0 \\
+   mapq < mapq_cut (non-unique):                             5935125 \\
+\\
+   mapq >= mapq_cut (unique):              					 54836896 \\
+   Read-1:                                										 0 \\
+   Read-2:                                										 0 \\
+   Reads map to '+':                       								 27245688 \\
+   Reads map to '-':                       								  27591208 \\
+   Non-splice reads:                       								 42688777 \\
+   Splice reads:                           									 12148119 \\
+   Reads mapped in proper pairs:								0 \\
+   Proper-paired reads map to different chrom:		0 \\
 
    *Note! For more detail read section XXXX in the book* and for parameters check [*RseQC*](http://rseqc.sourceforge.net/).
 
@@ -622,7 +622,8 @@ transcriptInfo.tab
     -t exon \
     -i gene_id \
     analysis/mapping/star/SRR5858228_1_trimmed.bam \
-    data/mouse-gencode-version-24/gencode.vM24.annotation.gtf > \       				analysis/quantification/htseq-count/SRR5858228_1_trimmed_counts.csv
+    data/mouse-gencode-version-24/gencode.vM24.annotation.gtf > \
+    analysis/quantification/htseq-count/SRR5858228_1_trimmed_counts.csv
    ```
 
    *Description:*
@@ -684,21 +685,21 @@ transcriptInfo.tab
 
    ```bash
    python2 dexseq_count.py \
-   	-p no \
+    -p no \
     -s no \
     -r name \
     analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff \
     -f bam \
     -a 10 \
-    analysis/mapping/star/SRR5858228_1_trimmed.bam
+    analysis/mapping/star/SRR5858228_1_trimmed.bam \
     analysis/quantification/dexseq-count/SRR5858228_1_trimmed_exon_counts.csv
    ```
 
    *Description:*
-   `-p`   is to set the paired end information. If the data is from a paired-end sequencing run, you need to add the option `-p yes`
-   `-s`  If you have used a library preparation protocol that does not preserve  strand information (i.e., reads from a given gene can appear equally  likely on either strand), you need to inform the script by specifying  the option `-s no`
+   `-p` is to set the paired end information. If the data is from a paired-end sequencing run, you need to add the option `-p yes`
+   `-s` If you have used a library preparation protocol that does not preserve  strand information (i.e., reads from a given gene can appear equally  likely on either strand), you need to inform the script by specifying  the option `-s no`
    `-r` is to indicate whether your data is sorted by alignment position or by read name
-   `-f`  input reads format
+   `-f` input reads format
    `-a` to specify the minimum alignment quality. All reads with a lower quality than specified (with default `-a 10`) are skipped.
 
    *Output:*
@@ -742,7 +743,7 @@ transcriptInfo.tab
    ```
 
    *Description:*
-   `--genecount`  is combined generated from bedtools or htseq along with its path
+   `--genecount` is combined generated from bedtools or htseq along with its path
    `--metadata` is the sample information file
    `--condition` is the column in the metadata data file that will be used for pairwise comparision using DESeq2.
    `--outputpath` is the path to the output directory where the result table and plots will be generated.
@@ -805,7 +806,7 @@ transcriptInfo.tab
 
    ```bash
    cuffdiff \
-   	-o analysis/DE/cuffdiff \
+    -o analysis/DE/cuffdiff \
     -L vt,dt \
     --FDR 0.01 \
     -u data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
@@ -816,8 +817,8 @@ transcriptInfo.tab
    *Description:*
    `-o` path to the output folder
    `-L` lists the labels to be used as “conditions”
-   `-FDR `  cutoff for false discovery rate for the DE analysis
-   `-u`  path to annotation file
+   `-FDR` cutoff for false discovery rate for the DE analysis
+   `-u` path to annotation file
    `-p` is the number threads
    `BAMLIST` is list of all bam file in comma format
 
@@ -841,5 +842,5 @@ transcriptInfo.tab
 |   |   |-- rawreads_QA_stats
 |   |   |-- filtered_reads
 |   | tools
-|   |   |-- DEXSeq/FastQC/STAR-2.7.3a/bedtools2/bowtie2/cufflinks/cutadapt/htseq/rseqqc               samtools/sratoolkit/tophat
+|   |   |-- DEXSeq/FastQC/STAR-2.7.3a/bedtools2/bowtie2/cufflinks/cutadapt/htseq/rseqqc/samtools/sratoolkit/tophat
 ```
