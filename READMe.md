@@ -170,10 +170,10 @@ Under the defined project name root directory, four sub-directories are created.
 
    ```bash
    fastq-dump \
-   	${SRA_ID} \
-    --split-files \
-    --origfmt \
-   	--gzip
+      ${SRA_ID} \
+      --split-files \
+      --origfmt \
+      --gzip
    ```
 
    *Description:*
@@ -211,8 +211,8 @@ Under the defined project name root directory, four sub-directories are created.
 
    ```bash
    fastqc \
-   	SRR5858228_1.fastq.gz \
-    -o rawreads_QA_stats
+      SRR5858228_1.fastq.gz \
+      -o rawreads_QA_stats
    ```
 
    *Description:*
@@ -258,12 +258,12 @@ Under the defined project name root directory, four sub-directories are created.
 
    ```bash
    cutadapt \
-    -q 20 \
-    --minimum-length 35 \
-    -a "CTGTCTCTTATACACATCT" \
-    -o reads/filtered_reads/SRR5858228_1_trimmed.gz \
-    SRR5858229_1.fastq.gz \ #Input file name
-    > SRR5858229_1_cutadapt_stats.txt # Output stats for given file
+      -q 20 \
+      --minimum-length 35 \
+      -a "CTGTCTCTTATACACATCT" \
+      -o reads/filtered_reads/SRR5858228_1_trimmed.gz \
+      SRR5858229_1.fastq.gz \ #Input file name
+      > SRR5858229_1_cutadapt_stats.txt # Output stats for given file
    ```
    *Description:*
    `-a`  is the adapter sequence for trimming.
@@ -322,17 +322,17 @@ Under the defined project name root directory, four sub-directories are created.
 
    ```bash
    STAR \
-   	--runThreadN 8 \
-    --runMode genomeGenerate \
-    --genomeDir data/STAR_Genome_Index \
-    --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
-    --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
+      --runThreadN 8 \
+      --runMode genomeGenerate \
+      --genomeDir data/STAR_Genome_Index \
+      --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
+      --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
    ```
    *Description:*
 
    `STAR` is the binary
-   ` --runMode`  is set to `genomeGenerate`  which generate genome files
-   ` --genomeDir`  is the path to output directory name
+   `--runMode`  is set to `genomeGenerate`  which generate genome files
+   `--genomeDir`  is the path to output directory name
    `--genomeFastaFiles`  is the path to genome fasta file with file name
    `--sjdbGTFfile` is the path to the annotation file with file name
    `--runThreadN` is number of threads (default used is 8)
@@ -366,14 +366,14 @@ transcriptInfo.tab
 
    ```bash
     STAR \
-     --runMode alignReads \
-     --runThreadN 8 \
-     --genomeDir data/STAR_Genome_Index \
-     --readFilesIn reads/filtered_reads/SRR5858228_1_trimmed.gz \
-     --readFilesCommand zcat \
-     --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
-     --outFileNamePrefix /analysis/mapping/star/SRR5858228_1_trimmed  \
- 	   --outSAMtype BAM SortedByCoordinate
+      --runMode alignReads \
+      --runThreadN 8 \
+      --genomeDir data/STAR_Genome_Index \
+      --readFilesIn reads/filtered_reads/SRR5858228_1_trimmed.gz \
+      --readFilesCommand zcat \
+      --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
+      --outFileNamePrefix /analysis/mapping/star/SRR5858228_1_trimmed  \
+      --outSAMtype BAM SortedByCoordinate
    ```
    *Description:*
    `STAR` is the binary
@@ -405,15 +405,12 @@ transcriptInfo.tab
    ```
 
    - **SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam** is aligned bam file
-
    - **SRR5858228_1_trimmed.SJ.out.tab**  is a tab-delimited file that provides information about alignments to splice junctions
-
    - **Percentage_uniquely_mapped_reads.csv**  file represents the uniquely mapped reads
 
    These three files are as names suggests provides the information about ongoing samples alignment. Out of these file with Log.final.out extension provides the complete mapping stats 	
 
    - **SRR5858228_1_trimmed.Log.final.out**
-
    - **SRR5858228_1_trimmed.Log.out**
    - **SRR5858228_1_trimmed.Log.progress.out**
 
@@ -425,19 +422,16 @@ transcriptInfo.tab
 
    ```bash
    bowtie2-build \
-   	-f data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
-    /data/TOPHAT_Genome_Index/ \
-   	-p 8
+      -f data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
+      /data/TOPHAT_Genome_Index/ \
+      -p 8
    ```
 
    *Description:*
 
    `bowtie2-build` is the binary
-
    `-f` is the path to genome fasta file with file name
-
    `-p` is to launch a specified number of parallel search threads
-
    `TOPHAT_Genome_Index` is the output directory created in **data** folder
 
    *Output:*
@@ -461,11 +455,11 @@ transcriptInfo.tab
 
    ```bash
    tophat \
-   	-o /analysis/mapping/tophat \
-    -p 8 \
-    -G data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
-    /data/TOPHAT_Genome_Index/GRCm38.p6.genome \
-    reads/filtered_reads/SRR5858228_1_trimmed.gz
+      -o /analysis/mapping/tophat \
+      -p 8 \
+      -G data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
+      /data/TOPHAT_Genome_Index/GRCm38.p6.genome \
+      reads/filtered_reads/SRR5858228_1_trimmed.gz
    ```
 
    *Description:*
@@ -483,11 +477,8 @@ transcriptInfo.tab
    TopHat generated many files as listed below. Here is example output for one SRA ID SRR5858228:
 
      - SRR5858228_1_trimmed_accepted_hits.bam  is the alignment bam file.
-
      - SRR5858228_1_trimmed_junctions.bed contains the discovered exon junctions in BED format. A junction consists of two blocks, where each block is as long as the longest overhang of any read spanning the junction. The score is the number of alignments spanning the junction.
-
      - SRR5858228_1_trimmed_insertions.bed contains the discovered insertions. chromLeft refers to the last genomic base before the insertion.
-
      - SRR5858228_1_trimmed_deletions.bed contains the discovered deletions. chromLeft refers to the first genomic base of the deletion.
      - SRR5858228_1_trimmed_align_summary.txt reports the alignment rate and how many reads and pairs had multiple alignments.
 
@@ -497,7 +488,7 @@ transcriptInfo.tab
 
    ```bash
    samtools \
-    index analysis/mapping/star/SRR5858228_1_trimmed.bam
+      index analysis/mapping/star/SRR5858228_1_trimmed.bam
    ```
 
    *Description:*
@@ -514,9 +505,9 @@ transcriptInfo.tab
 
    ```bash
    python3 bam_stat.py \
-    -q 30 \
-    -i analysis/mapping/star/SRR5858228_1_trimmed.bam >  \
-    analysis/mapping/star/SRR5858228_1_trimmed_RSeQC_alignment_stats.txt
+      -q 30 \
+      -i analysis/mapping/star/SRR5858228_1_trimmed.bam >  \
+      analysis/mapping/star/SRR5858228_1_trimmed_RSeQC_alignment_stats.txt
    ```
 
    *Description:*
@@ -529,28 +520,27 @@ transcriptInfo.tab
    *Output:*  
 
    **SRR5858228_1_trimmed.Aligned.sortedByCoord.out._RSeQC_alignment_stats.txt** file will be created for SRA sample ID SRR5858228.
+   
+   |    #=====================  #All numbers are READ count  #===================== |                              |
+   | :--------------------------------------------- | :----------------------------------------------------------- |
+   |Total records:                                  |             	                               72432644       |
+   |                                                |                                                              |
+   | QC failed:                                     |                                                           0  |
+   | Optical/PCR duplicate:                         |                                                           0  |
+   | Non primary hits                               |                                                    11660623  |
+   | Unmapped reads:                                |                                                            0 |
+   |mapq < mapq_cut (non-unique):                   |                                                     5935125  |
+   |                                                |                                                              |
+   | mapq >= mapq_cut (unique):                     |          					                           54836896  |
+   | Read-1:                                        |                            										 0  |
+   |Read-2:                                         |                            										 0  |
+   | Reads map to '+':                              |                								             27245688 |
+   | Reads map to '-':                              |              								               27591208  |
+   |  Non-splice reads:                             |           								                   42688777 |
+   | Splice reads:                                  |        									                   12148119 |
+   |  Reads mapped in proper pairs:				       |			                                                    0  |
+   |  Proper-paired reads map to different chrom:	 |	                                                          0  |
 
-   #==================================================
-   #All numbers are READ count
-   #==================================================
-
-   Total records:                          	                               72432644 \\
-\\
-   QC failed:                                                                     0 \\
-   Optical/PCR duplicate:                                               0 \\
-   Non primary hits                                                        11660623 \\
-   Unmapped reads:                                                      0 \\
-   mapq < mapq_cut (non-unique):                             5935125 \\
-\\
-   mapq >= mapq_cut (unique):              					 54836896 \\
-   Read-1:                                										 0 \\
-   Read-2:                                										 0 \\
-   Reads map to '+':                       								 27245688 \\
-   Reads map to '-':                       								  27591208 \\
-   Non-splice reads:                       								 42688777 \\
-   Splice reads:                           									 12148119 \\
-   Reads mapped in proper pairs:								0 \\
-   Proper-paired reads map to different chrom:		0 \\
 
    *Note! For more detail read section XXXX in the book* and for parameters check [*RseQC*](http://rseqc.sourceforge.net/).
 
@@ -587,12 +577,12 @@ transcriptInfo.tab
 
    ```bash
    bedtools intersect \
-    -S \
-    -wa \
-    -c \
-    -a genes_only.gff3 \
-    -b analysis/mapping/star/SRR5858228_1_trimmed.bam \
-    > analysis/quantification/bedtools-count/SRR5858228_1_trimmed_counts.csv
+      -S \
+      -wa \
+      -c \
+      -a genes_only.gff3 \
+      -b analysis/mapping/star/SRR5858228_1_trimmed.bam \
+      > analysis/quantification/bedtools-count/SRR5858228_1_trimmed_counts.csv
    ```
 
    *Description:*
@@ -615,15 +605,15 @@ transcriptInfo.tab
 
    ```bash
    htseq-count \
-   	-f bam \
-    -a 10 \
-    -m intersect-strict \
-    -s no \
-    -t exon \
-    -i gene_id \
-    analysis/mapping/star/SRR5858228_1_trimmed.bam \
-    data/mouse-gencode-version-24/gencode.vM24.annotation.gtf > \
-    analysis/quantification/htseq-count/SRR5858228_1_trimmed_counts.csv
+      -f bam \
+      -a 10 \
+      -m intersect-strict \
+      -s no \
+      -t exon \
+      -i gene_id \
+      analysis/mapping/star/SRR5858228_1_trimmed.bam \
+      data/mouse-gencode-version-24/gencode.vM24.annotation.gtf > \
+      analysis/quantification/htseq-count/SRR5858228_1_trimmed_counts.csv
    ```
 
    *Description:*
@@ -645,11 +635,11 @@ transcriptInfo.tab
 
    ```bash
    cufflinks \
-    -G data/mouse-gencode-version-24/gencode.vM24.annotation.gtf  \
-    -b data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
-    -p 8 \
-    analysis/mapping/star/SRR5858228_1_trimmed.bam \
-    -o analysis/quantification/cufflinks-count
+      -G data/mouse-gencode-version-24/gencode.vM24.annotation.gtf  \
+      -b data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
+      -p 8 \
+      analysis/mapping/star/SRR5858228_1_trimmed.bam \
+      -o analysis/quantification/cufflinks-count
    ```
 
    *Description:*
@@ -675,8 +665,8 @@ transcriptInfo.tab
 
    ```bash
    python2 dexseq_prepare_annotation.py \
-    data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
-    analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff
+      data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
+      analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff
    ```
 
    The Python script *dexseq_prepare_annotation.py* takes an GTF file and translates it into a GFF file with collapsed exon counting bins. For more details see Figure 1 of the *[DEXSeq](https://bioconductor.org/packages/3.11/DEXSeq)* paper (Anders, Reyes, and Huber (2012)) for an illustration.
@@ -685,14 +675,14 @@ transcriptInfo.tab
 
    ```bash
    python2 dexseq_count.py \
-    -p no \
-    -s no \
-    -r name \
-    analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff \
-    -f bam \
-    -a 10 \
-    analysis/mapping/star/SRR5858228_1_trimmed.bam \
-    analysis/quantification/dexseq-count/SRR5858228_1_trimmed_exon_counts.csv
+      -p no \
+      -s no \
+      -r name \
+      analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff \
+      -f bam \
+      -a 10 \
+      analysis/mapping/star/SRR5858228_1_trimmed.bam \
+      analysis/quantification/dexseq-count/SRR5858228_1_trimmed_exon_counts.csv
    ```
 
    *Description:*
@@ -736,10 +726,10 @@ transcriptInfo.tab
 
    ```bash
    Rscript DE_deseq_genes_bedtools.R \
-     --genecount analysis/quantification/bedtools-count/Read_per_features_combined.csv \
-     --metadata metadata.txt \
-     --condition condition \
-     --outputpath analysis/DE/deseq2/
+      --genecount analysis/quantification/bedtools-count/Read_per_features_combined.csv \
+      --metadata metadata.txt \
+      --condition condition \
+      --outputpath analysis/DE/deseq2/
    ```
 
    *Description:*
