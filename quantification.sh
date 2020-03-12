@@ -272,7 +272,7 @@ run_gene_quantification_with_bedtools(){
     rm ${BEDTOOLS_QUANT_FOLDER}/Read_per_features_combined.csv
     for FILE in $(ls ${BEDTOOLS_QUANT_FOLDER})
     do
-      CLEANED_NAME=$(echo $FILE | sed "s/_trimmed_counts.csv//")
+      CLEANED_NAME=$(echo $FILE | sed "s/_trimmed.Aligned.sortedByCoord.out.csv//")
       echo ${BEDTOOLS_QUANT_FOLDER}/$FILE
       echo $CLEANED_NAME > tmp1
       cut -f 10 ${BEDTOOLS_QUANT_FOLDER}/$FILE >> tmp1
