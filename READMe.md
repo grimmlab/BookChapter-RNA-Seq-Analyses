@@ -163,6 +163,7 @@ Under the defined project name root directory, four sub-directories are created.
    This script contains three main sub-steps:
    
    __*a. Downloading the publically available data*__
+      
       Publically available data from PMID: [28738885](https://www.ncbi.nlm.nih.gov/pubmed/28738885) is used for the analysis purpose. In the first step data is downloaded using `fastq-dump` binary from SRA toolkit in the **tools** folder.
 
       The `fastq-dump` tool uses the following parameters:
