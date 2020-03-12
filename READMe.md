@@ -257,7 +257,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 
-   <u>_c. Quality control of downloaded data_:</u>
+   __*c. Quality control of downloaded data_:*__
 
    Based on the assessment of the report quality control (QC) is performed using the  `cutadapt` tool.
 
