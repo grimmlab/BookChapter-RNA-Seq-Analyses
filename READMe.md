@@ -162,8 +162,8 @@ Under the defined project name root directory, four sub-directories are created.
 
    This script contains three main sub-steps:
 
-   <u>_a. Downloading the publically available data_</u>
-
+   *__a. Downloading the publically available data__*
+   
    Publically available data from PMID: [28738885](https://www.ncbi.nlm.nih.gov/pubmed/28738885) is used for the analysis purpose. In the first step data is downloaded using `fastq-dump` binary from SRA toolkit in the **tools** folder.
 
    The `fastq-dump` tool uses the following parameters:
@@ -208,7 +208,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 
-   <u>_b. Quality assessment of downloaded data_:</u>
+   *__b. Quality assessment of downloaded data:__*
 
    The downloaded SRA fastq files are then assessed for sequence quality using `fastqc` program.
 
@@ -329,7 +329,7 @@ Under the defined project name root directory, four sub-directories are created.
    | Alignment stats           | [*RseQC*](http://rseqc.sourceforge.net/) (f.)                | [*RseQC*](http://rseqc.sourceforge.net/)                     |
    | Visualization             | *IGV* (g.)                                                   | *IGV*                                                        |
 
-   a. <u>Genome indexing using STAR:</u>
+  *__a.Genome indexing using STAR:__*
 
    ```bash
    STAR \
@@ -378,8 +378,7 @@ Under the defined project name root directory, four sub-directories are created.
 
    *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
 
-   b. <u>Alignment using STAR:</u>
-
+  *__b.Alignment using STAR:__*
    ```bash
     STAR \
       --runMode alignReads \
