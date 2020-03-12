@@ -163,143 +163,142 @@ Under the defined project name root directory, four sub-directories are created.
    This script contains three main sub-steps:
    
    __*a. Downloading the publically available data*__
-      
-      Publically available data from PMID: [28738885](https://www.ncbi.nlm.nih.gov/pubmed/28738885) is used for the analysis purpose. In the first step data is downloaded using `fastq-dump` binary from SRA toolkit in the **tools** folder.
-
-      The `fastq-dump` tool uses the following parameters:
-
-      ```bash
-      fastq-dump \
-         ${SRA_ID} \
-         --split-files \
-         --origfmt \
-         --gzip
-      ```
    
-      *Description:*
+   Publically available data from PMID: [28738885](https://www.ncbi.nlm.nih.gov/pubmed/28738885) is used for the analysis purpose. In the first step data is downloaded using `fastq-dump` binary from SRA toolkit in the **tools** folder.
+
+   The `fastq-dump` tool uses the following parameters:
+
+   ```bash
+   fastq-dump \
+      ${SRA_ID} \
+      --split-files \
+      --origfmt \
+      --gzip
+   ```
    
-      `fastq-dump` is the binary
+   *Description:*
+   
+   `fastq-dump` is the binary
 
-      `${SRA_ID}` are list of fastq files. These SRA  files will be downloaded one at a time
+   `${SRA_ID}` are list of fastq files. These SRA  files will be downloaded one at a time
 
-      `--split-files` parameter will produce two reads if the data is paired end else single file
+   `--split-files` parameter will produce two reads if the data is paired end else single file
 
-      `--origfmt`  parameter contains only original sequence name
+   `--origfmt`  parameter contains only original sequence name
 
-      `--gzip` will provide the compressed output using gzip
+   `--gzip` will provide the compressed output using gzip
 
-      *Output:*
-      The `fastq-dump` downloads the following files into the **reads/rawreads** folder:
+   *Output:*
+   The `fastq-dump` downloads the following files into the **reads/rawreads** folder:
 
-      ```bash
-      ~/RNASeq_project/reads/rawreads$ls -1
-      SRR5858228_1.fastq.gz
-      SRR5858229_1.fastq.gz
-      SRR5858230_1.fastq.gz
-      SRR5858231_1.fastq.gz
-      SRR5858232_1.fastq.gz
-      SRR5858233_1.fastq.gz
-      SRR5858234_1.fastq.gz
-      SRR5858235_1.fastq.gz
-      SRR5858236_1.fastq.gz
+   ```bash
+   ~/RNASeq_project/reads/rawreads$ls -1
+   SRR5858228_1.fastq.gz
+   SRR5858229_1.fastq.gz
+   SRR5858230_1.fastq.gz
+   SRR5858231_1.fastq.gz
+   SRR5858232_1.fastq.gz
+   SRR5858233_1.fastq.gz
+   SRR5858234_1.fastq.gz
+   SRR5858235_1.fastq.gz
+   SRR5858236_1.fastq.gz
    ```
 
-      *NOTE! To read more about fastq-dump parameters click [here](https://ncbi.github.io/sra-tools/fastq-dump.html).*
+   *NOTE! To read more about fastq-dump parameters click [here](https://ncbi.github.io/sra-tools/fastq-dump.html).*
 
 
 
    __*b. Quality assessment of downloaded data:*__
 
-      The downloaded SRA fastq files are then assessed for sequence quality using `fastqc` program.
+   The downloaded SRA fastq files are then assessed for sequence quality using `fastqc` program.
 
-      The `fastqc` tool uses the following parameters:
+   The `fastqc` tool uses the following parameters:
 
-      ```bash
-      fastqc \
-         SRR5858228_1.fastq.gz \
-         -o rawreads_QA_stats
-      ```
-
-      *Description:*
-   
-      `fastqc`  is the binary.
-   
-      `SRR5858229_1.fasta.gz`  is one example file as an input for quality assessment. This is run in a for loop which will run on all downloaded samples.
-   
-      `-o` is path to output directory, here it is `reads_QA_stats` .
-
-      *Output:*
-      The `fastq-dump` downloads the following files into the **reads/rawreads_QA_stats** folder:
-
-      ```bash
-      ~/RNASeq_project/reads/rawreads_QA_stats$ls -1
-      SRR5858228_1_fastqc.html
-      SRR5858228_1_fastqc.zip
-      SRR5858229_1_fastqc.html
-      SRR5858229_1_fastqc.zip
-      SRR5858230_1_fastqc.html
-      SRR5858230_1_fastqc.zip
-      SRR5858231_1_fastqc.html
-      SRR5858231_1_fastqc.zip
-      SRR5858232_1_fastqc.html
-      SRR5858232_1_fastqc.zip
-      SRR5858233_1_fastqc.html
-      SRR5858233_1_fastqc.zip
-      SRR5858234_1_fastqc.html
-      SRR5858234_1_fastqc.zip
-      SRR5858235_1_fastqc.html
-      SRR5858235_1_fastqc.zip
-      SRR5858236_1_fastqc.html
-      SRR5858236_1_fastqc.zip
+   ```bash
+   fastqc \
+      SRR5858228_1.fastq.gz \
+      -o rawreads_QA_stats
    ```
 
-      *Note! For more details about fastqc, read section XXX in book and for parameters check [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)*
+   *Description:*
+   
+   `fastqc` is the binary.
+   
+   `SRR5858229_1.fasta.gz`  is one example file as an input for quality assessment. This is run in a for loop which will run on all downloaded samples.
+   
+   `-o` is path to output directory, here it is `reads_QA_stats` .
 
+   *Output:*
+   The `fastqc` will generate the output for all downloaded files into the **reads/rawreads_QA_stats** folder:
 
+   ```bash
+   ~/RNASeq_project/reads/rawreads_QA_stats$ls -1
+   SRR5858228_1_fastqc.html
+   SRR5858228_1_fastqc.zip
+   SRR5858229_1_fastqc.html
+   SRR5858229_1_fastqc.zip
+   SRR5858230_1_fastqc.html
+   SRR5858230_1_fastqc.zip
+   SRR5858231_1_fastqc.html
+   SRR5858231_1_fastqc.zip
+   SRR5858232_1_fastqc.html
+   SRR5858232_1_fastqc.zip
+   SRR5858233_1_fastqc.html
+   SRR5858233_1_fastqc.zip
+   SRR5858234_1_fastqc.html
+   SRR5858234_1_fastqc.zip
+   SRR5858235_1_fastqc.html
+   SRR5858235_1_fastqc.zip
+   SRR5858236_1_fastqc.html
+   SRR5858236_1_fastqc.zip
+   ```
 
-   __*c. Quality control of downloaded data_:*__
+   *Note! For more details about fastqc, read section XXX in book and for parameters check [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)*
+      
 
-      Based on the assessment of the report quality control (QC) is performed using the  `cutadapt` tool.
+   __*c. Quality control of downloaded data:*__
 
-      The `cutadapt` tool uses the following parameters:
+   Based on the assessment of the report quality control (QC) is performed using the  `cutadapt` tool.
 
-      ```bash
-      cutadapt \
-         -q 20 \
-         --minimum-length 35 \
-         -a "CTGTCTCTTATACACATCT" \
-         -o reads/filtered_reads/SRR5858228_1_trimmed.gz \
-         SRR5858229_1.fastq.gz \ #Input file name
-         > SRR5858229_1_cutadapt_stats.txt # Output stats for given file
-      ```
+   The `cutadapt` tool uses the following parameters:
 
-      *Description:*
+   ```bash
+   cutadapt \
+      -q 20 \
+      --minimum-length 35 \
+      -a "CTGTCTCTTATACACATCT" \
+      -o reads/filtered_reads/SRR5858228_1_trimmed.gz \
+      SRR5858229_1.fastq.gz \ #Input file name
+      > SRR5858229_1_cutadapt_stats.txt # Output stats for given file
+   ```
 
-      `-a`  is the adapter sequence for trimming
+   *Description:*
 
-      `--minimum-length`  is the minimum sequence length (35)
+   `-a`  is the adapter sequence for trimming
 
-      `-q` phred score of 20
+   `--minimum-length`  is the minimum sequence length (35)
 
-      `-o` is the output file name
+   `-q` phred score of 20
 
-      *Output:*
-      The `cutadapt`  will generated trimmed files into the **reads/filtered_reads** folder:
+   `-o` is the output file name
 
-      ```bash
-      ~/RNASeq_project/reads/filtered_reads$ls -1
-      SRR5858228_1_trimmed.gz
-      SRR5858229_1_trimmed.gz
-      SRR5858230_1_trimmed.gz
-      SRR5858231_1_trimmed.gz
-      SRR5858232_1_trimmed.gz
-      SRR5858233_1_trimmed.gz
-      SRR5858234_1_trimmed.gz
-      SRR5858235_1_trimmed.gz
-      SRR5858236_1_trimmed.gz
-      ```
+   *Output:*
+   The `cutadapt`  will generated trimmed files into the **reads/filtered_reads** folder:
 
-      *Note! Details of quality control and how to choose the parameter are chosen is explained in chapter (XXX). To understand parameter in detail check [Cutadapt](https://cutadapt.readthedocs.io/en/stable/guide.html).*
+   ```bash
+   ~/RNASeq_project/reads/filtered_reads$ls -1
+   SRR5858228_1_trimmed.gz
+   SRR5858229_1_trimmed.gz
+   SRR5858230_1_trimmed.gz
+   SRR5858231_1_trimmed.gz
+   SRR5858232_1_trimmed.gz
+   SRR5858233_1_trimmed.gz
+   SRR5858234_1_trimmed.gz
+   SRR5858235_1_trimmed.gz
+   SRR5858236_1_trimmed.gz
+   ```
+
+   *Note! Details of quality control and how to choose the parameter are chosen is explained in chapter (XXX). To understand parameter in detail check [Cutadapt](https://cutadapt.readthedocs.io/en/stable/guide.html).*
 
 
 
@@ -331,116 +330,116 @@ Under the defined project name root directory, four sub-directories are created.
 
   __*a. Genome indexing using STAR:*__
   
-   ```bash
-   STAR \
-      --runThreadN 8 \
-      --runMode genomeGenerate \
-      --genomeDir data/STAR_Genome_Index \
-      --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
-      --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
-    ```
+  ```bash
+  STAR \
+   --runThreadN 8 \
+   --runMode genomeGenerate \
+   --genomeDir data/STAR_Genome_Index \
+   --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
+   --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
+  ```
     
-    *Description:*
+  *Description:*
 
-    `STAR` is the binary
+  `STAR` is the binary
 
-    `--runMode` is set to `genomeGenerate`  which generate genome files
+  `--runMode` is set to `genomeGenerate`  which generate genome files
 
-    `--genomeDir` is the path to output directory name
+  `--genomeDir` is the path to output directory name
 
-    `--genomeFastaFiles` is the path to genome fasta file with file name
+  `--genomeFastaFiles` is the path to genome fasta file with file name
 
-    `--sjdbGTFfile` is the path to the annotation file with file name
+  `--sjdbGTFfile` is the path to the annotation file with file name
 
-    `--runThreadN` is number of threads (default used is 8)
+  `--runThreadN` is number of threads (default used is 8)
 
-    *Output:*
-    The `STAR`  genome indexing will generated indexed genome files into the **data/STAR_Genome_Index** folder:
+  *Output:*
+  The `STAR`  genome indexing will generated indexed genome files into the **data/STAR_Genome_Index** folder:
 
-    ```bash
-    ~/RNASeq_project/data/STAR_Genome_Index$ls -1
-    Genome
-    SA
-    SAindex
-    chrLength.txt
-    chrName.txt
-    chrNameLength.txt
-    chrStart.txt
-    exonGeTrInfo.tab
-    exonInfo.tab
-    geneInfo.tab
-    genomeParameters.txt
-    sjdbInfo.txt
-    sjdbList.fromGTF.out.tab
-    sjdbList.out.tab
-    transcriptInfo.tab
-    ```
+  ```bash
+  ~/RNASeq_project/data/STAR_Genome_Index$ls -1
+  Genome
+  SA
+  SAindex
+  chrLength.txt
+  chrName.txt
+  chrNameLength.txt
+  chrStart.txt
+  exonGeTrInfo.tab
+  exonInfo.tab
+  geneInfo.tab
+  genomeParameters.txt
+  sjdbInfo.txt
+  sjdbList.fromGTF.out.tab
+  sjdbList.out.tab
+  transcriptInfo.tab
+  ```
 
-    *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
+  *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
 
 
   __*b. Alignment using STAR:*__
   
-      ```bash
-       STAR \
-         --runMode alignReads \
-         --runThreadN 8 \
-         --genomeDir data/STAR_Genome_Index \
-         --readFilesIn reads/filtered_reads/SRR5858228_1_trimmed.gz \
-         --readFilesCommand zcat \
-         --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
-         --outFileNamePrefix /analysis/mapping/star/SRR5858228_1_trimmed  \
-         --outSAMtype BAM SortedByCoordinate
-      ```
+  ```bash
+  STAR \
+   --runMode alignReads \
+   --runThreadN 8 \
+   --genomeDir data/STAR_Genome_Index \
+   --readFilesIn reads/filtered_reads/SRR5858228_1_trimmed.gz \
+   --readFilesCommand zcat \
+   --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
+   --outFileNamePrefix /analysis/mapping/star/SRR5858228_1_trimmed  \
+   --outSAMtype BAM SortedByCoordinate
+  ```
+  
+  *Description:*
 
-      *Description:*
+   `STAR` is the binary
 
-      `STAR` is the binary
+   `--runMode`  is `alignReads`  which means map reads to the reference genome
 
-      `--runMode`  is `alignReads`  which means map reads to the reference genome
+   `--runThreadN` is the number of threads (default used is 8)
 
-      `--runThreadN` is the number of threads (default used is 8)
+   `--genomeDir` is the path to genome indexed directory
 
-      `--genomeDir` is the path to genome indexed directory
+   `--readFilesIn` is the path to trimmed reads including file name
 
-      `--readFilesIn` is the path to trimmed reads including file name
+   `--readFilesCommand` for gzipped files (*.gz) use zcat
 
-      `--readFilesCommand` for gzipped files (*.gz) use zcat
+   `--sjdbGTFfile` is the path annotation file with file name
 
-      `--sjdbGTFfile` is the path annotation file with file name
+   `--outFileNamePrefix`  is output prefix name with its path
 
-      `--outFileNamePrefix`  is output prefix name with its path
+   `--outSAMtype` is the output sorted by coordinate, similar to samtools sort command
 
-      `--outSAMtype` is the output sorted by coordinate, similar to samtools sort command
+   *Output:*
+   The `STAR`  genome alignment will generated in files into the **analysis/mapping/star** folder:
 
-      *Output:*
-      The `STAR`  genome alignment will generated in files into the **analysis/mapping/star** folder:
+   This is the output for one sample, similar files will be generated for other samples as well
+   
+   ```bash
+   ~/RNASeq_project/analysis/mapping/star$ls -1
+   Percentage_uniquely_mapped_reads.csv
+   SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam
+   SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam.bai
+   SRR5858228_1_trimmed.Log.final.out
+   SRR5858228_1_trimmed.Log.out
+   SRR5858228_1_trimmed.Log.progress.out
+   SRR5858228_1_trimmed.SJ.out.tab
+   SRR5858228_1_trimmed._STARgenome
+   ```
 
-      This is the output for one sample, similar files will be generated for other samples as well
+   - **SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam** is aligned bam file
+   - **SRR5858228_1_trimmed.SJ.out.tab**  is a tab-delimited file that provides information about alignments to splice junctions
+   - **Percentage_uniquely_mapped_reads.csv**  file represents the uniquely mapped reads
 
-      ```bash
-      ~/RNASeq_project/analysis/mapping/star$ls -1
-      Percentage_uniquely_mapped_reads.csv
-      SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam
-      SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam.bai
-      SRR5858228_1_trimmed.Log.final.out
-      SRR5858228_1_trimmed.Log.out
-      SRR5858228_1_trimmed.Log.progress.out
-      SRR5858228_1_trimmed.SJ.out.tab
-      SRR5858228_1_trimmed._STARgenome
-      ```
+   These three files are as names suggests provides the information about ongoing samples alignment. Out of these file with Log.final.out extension provides the complete mapping stats 	
 
-      - **SRR5858228_1_trimmed.Aligned.sortedByCoord.out.bam** is aligned bam file
-      - **SRR5858228_1_trimmed.SJ.out.tab**  is a tab-delimited file that provides information about alignments to splice junctions
-      - **Percentage_uniquely_mapped_reads.csv**  file represents the uniquely mapped reads
+   - **SRR5858228_1_trimmed.Log.final.out**
+   - **SRR5858228_1_trimmed.Log.out**
+   - **SRR5858228_1_trimmed.Log.progress.out**
 
-      These three files are as names suggests provides the information about ongoing samples alignment. Out of these file with Log.final.out extension provides the complete mapping stats 	
-
-      - **SRR5858228_1_trimmed.Log.final.out**
-      - **SRR5858228_1_trimmed.Log.out**
-      - **SRR5858228_1_trimmed.Log.progress.out**
-
-      *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
+   *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
 
    __*c. Genome indexing using bowtie for TopHat2:*__
 
@@ -510,11 +509,11 @@ Under the defined project name root directory, four sub-directories are created.
 
    TopHat generated many files as listed below. Here is example output for one SRA ID SRR5858228:
 
-     - **SRR5858228_1_trimmed_accepted_hits.bam** represents the alignment file in bam format.
-     - **SRR5858228_1_trimmed_junctions.bed** consists of a list of exon junctions in BED formation. An exon junction comprises two blocks where either block is as long as the longest overhang of any read present in the junction sequence. The score is the number of alignments identified for a junction sequence. 
-     - **SRR5858228_1_trimmed_insertions.bed** consists of a list of discovered insertions. In each case chromLeft represents the last genomic base before individual insertions.
-     - **SRR5858228_1_trimmed_deletions.bed** consists of a list of discovered deletions. In each case chromLeft represents the last genomic base before individual deletions.
-     - **SRR5858228_1_trimmed_align_summary.txt** contains a summary of alignment rates along with the number of  reads and pairs showing multiple alignments.
+   - **SRR5858228_1_trimmed_accepted_hits.bam** represents the alignment file in bam format.
+   - **SRR5858228_1_trimmed_junctions.bed** consists of a list of exon junctions in BED formation. An exon junction comprises two blocks where either block is as long as the longest overhang of any read present in the junction sequence. The score is the number of alignments identified for a junction sequence. 
+   - **SRR5858228_1_trimmed_insertions.bed** consists of a list of discovered insertions. In each case chromLeft represents the last genomic base before individual insertions.
+   - **SRR5858228_1_trimmed_deletions.bed** consists of a list of discovered deletions. In each case chromLeft represents the last genomic base before individual deletions.
+   - **SRR5858228_1_trimmed_align_summary.txt** contains a summary of alignment rates along with the number of  reads and pairs showing multiple alignments.
 
    *Note! For more detail read section XXXX in the book* and for parameters check [*TopHat2*](http://ccb.jhu.edu/software/tophat/manual.shtml).
 
@@ -559,7 +558,7 @@ Under the defined project name root directory, four sub-directories are created.
    *Output:* 
    **SRR5858228_1_trimmed.Aligned.sortedByCoord.out._RSeQC_alignment_stats.txt** file will be created for SRA sample ID SRR5858228.
    
-   |    #=====================  #All numbers are READ count  #===================== |             |
+   |   #============== # All numbers are READ count  #============== |                            |
    | :--------------------------------------------- | :------------------------------------------ |
    |Total records:                                  |             	              72432644       |
    |                                                |                                             |
