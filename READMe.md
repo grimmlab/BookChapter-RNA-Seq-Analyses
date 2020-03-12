@@ -84,7 +84,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 ## Brief Description of the Each Step
 
-1. ##### **Download and install tools and python libraries (download_install_tools.sh):**
+1. #### **Download and install tools and python libraries (download_install_tools.sh):**
 
    The first step for running the workflow is to download and install all the required tools used by the workflow. This can be done by running the shell script:
 
@@ -112,7 +112,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 
-2. ##### **Download Eukaryotic genome and its annotation (download_genome_and_annotation.sh)**
+2. #### **Download Eukaryotic genome and its annotation (download_genome_and_annotation.sh)**
    Assumption here is that RNASeq data is from mouse or human. The genomes of these species are available and well annotated. The genome file is in fasta format and the annotation file is in gtf/gff format. This script will download the current [gencode genome](ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_mouse/release_M24/) (default: mouse) and its annotation into the **data** folder. Currently, the latest version of gencode is used for the mouse genome. The version can be changed by modifying `GENOME_VERSION` parameter and the genome can be changed to human by modifying `GENOME_TYPE` in the `project_conf.sh` file:
 
    ```bash
@@ -152,7 +152,7 @@ Under the defined project name root directory, four sub-directories are created.
    genome_annoatation_md5sum.txt
    ```
 
-3. ##### **Download the data and perform quality control (download_RNASeq_reads_and_QC.sh)**
+3. #### **Download the data and perform quality control (download_RNASeq_reads_and_QC.sh)**
 
    This step is used to download an example data to perform the RNASeq analysis. This can be done by running the shell script:
 
@@ -303,7 +303,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 
-4. ##### **Perform reference alignment using genome sequence (reference_based_alignment.sh)**
+4. #### **Perform reference alignment using genome sequence (reference_based_alignment.sh)**
 
    Aligning reads to genome can be challenging due to millions of reads, small read size (2nd generation sequencing), sequencing errors and variation leads to mismatches and indels. In addition to that eukaryotic genome have introns , this means when genome is used a reference, aligner is aware of splice junction in the reference.
 
@@ -589,7 +589,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 
-3. ##### **Quantification (quantification.sh)**
+5. #### **Quantification (quantification.sh)**
 
    This step will perform quantification on alignment files generated form reference based RNASeq alignment. This can be done by running the shell script:
 
@@ -609,6 +609,7 @@ Under the defined project name root directory, four sub-directories are created.
    | per gene                                | [HTSeq](https://htseq.readthedocs.io/) (b.)                  |
    | per transcript                          | *[Cufflinks](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjBgZnNsPnnAhWJ5KQKHX-WDUEQFjAAegQIBBAB&url=http%3A%2F%2Fcole-trapnell-lab.github.io%2Fcufflinks%2Fcufflinks%2F&usg=AOvVaw1JN_NkATlDD-FIYoGiXJFf)* (c.) |
    | per exon                                | *[DEXSeq](https://bioconductor.org/packages/release/bioc/html/DEXSeq.html)* (d.) |
+
 
    a. <u>Counting reads per gene using *bedtools*:</u>
 
@@ -679,6 +680,7 @@ Under the defined project name root directory, four sub-directories are created.
 
    *Note! For more details about HTSeq read section XXX in the book and for parameters check [HTSeq](https://htseq.readthedocs.io/en/release_0.9.1/count.html#count)*
 
+
    c. <u>Counting reads per transcript using *cufflinks*:</u>
 
    ```bash
@@ -706,9 +708,8 @@ Under the defined project name root directory, four sub-directories are created.
    The outputs will be generated in **analysis/quantification/cufflinks-count folder**. The output consists of transcript and gene-level FPKM-tracking files, which contain FPKM values and their confidence intervals. FPKM tracking files are also produced when a set of samples is tested for differential expression using Cuffdiff.
 
    *Note! For more details about Cufflinks read section XXX in the book and for parameters check [Cufflinks](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjBgZnNsPnnAhWJ5KQKHX-WDUEQFjAAegQIBBAB&url=http%3A%2F%2Fcole-trapnell-lab.github.io%2Fcufflinks%2Fcufflinks%2F&usg=AOvVaw1JN_NkATlDD-FIYoGiXJFf).*
-
-
-
+   
+   
    d. <u>Counting reads per  exon using *DEXSeq*:</u>
 
    The initial steps of a *[DEXSeq](https://bioconductor.org/packages/3.11/DEXSeq)* analysis are done using two Python scripts. Importantly, these preprocessing steps can also be done using tools equivalent to these Python scripts, for example, using *[GenomicRanges](https://bioconductor.org/packages/3.11/GenomicRanges)* infrastructure ([10.2](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html#preprocessing-within-r)) or *[Rsubread](https://bioconductor.org/packages/3.11/Rsubread)* ([10.3](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html#preprocessing-using-featurecounts)). The following two steps describe how to do this steps using the Python scripts that are provided within *[DEXSeq](https://bioconductor.org/packages/3.11/DEXSeq)*.
@@ -757,7 +758,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 
-4. **Differential Expression (differential_expression.sh)**
+6. #### **Differential Expression (differential_expression.sh)**
 
    Differential expression (DE) analysis refers to the identification of genes (or other types of genomic features, such as, transcripts or exons) that are expressed in significantly different quantities in distinct groups of samples, be it biological conditions (drug-treated vs. controls), diseased vs. healthy individuals, different tissues, different stages of development, or something else.
 
