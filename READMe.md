@@ -12,7 +12,7 @@ Description:    Ubuntu 18.04.2 LTS <br/>
 Release: 	18.04 <br/>
 Codename:       bionic <br/>
 
-'lsb_release -a' on a Ubuntu based system.
+`lsb_release -a` on a Ubuntu based system.
 
 ### Hardware
 <p style='text-align: justify;'> It is no secret that the hardware highly influences the speed of the workflows. And just one same can generate ~10-60 Million reads. The most time consuming tasks are the ones that involve reference based alignment. A modest configuration consists of 16+cores and 16 GB of RAM with TB external hard drive or 48 TB server and 3.6 GHz clock speed if one wants to run it on one’s own workstation. A majority of the diskspace is occupied by reference . Our HW configuration consists of 20 core CPU with 128 GB.</p>
@@ -175,12 +175,17 @@ Under the defined project name root directory, four sub-directories are created.
       --origfmt \
       --gzip
    ```
-
+   
    *Description:*
+   
    `fastq-dump` is the binary
+   
    `${SRA_ID}` are list of fastq files. These SRA  files will be downloaded one at a time
+   
    `--split-files` parameter will produce two reads if the data is paired end else single file
+   
    `--origfmt`  parameter contains only original sequence name
+   
    `--gzip` will provide the compressed output using gzip
 
    *Output:*
@@ -216,12 +221,14 @@ Under the defined project name root directory, four sub-directories are created.
    ```
 
    *Description:*
+   
    `fastqc`  is the binary.
+   
    `SRR5858229_1.fasta.gz`  is one example file as an input for quality assessment. This is run in a for loop which will run on all downloaded samples.
+   
    `-o` is path to output directory, here it is `reads_QA_stats` .
 
    *Output:*
-
    The `fastq-dump` downloads the following files into the **reads/rawreads_QA_stats** folder:
 
    ```bash
@@ -265,14 +272,18 @@ Under the defined project name root directory, four sub-directories are created.
       SRR5858229_1.fastq.gz \ #Input file name
       > SRR5858229_1_cutadapt_stats.txt # Output stats for given file
    ```
+   
    *Description:*
-   `-a`  is the adapter sequence for trimming.
+   
+   `-a`  is the adapter sequence for trimming
+   
    `--minimum-length`  is the minimum sequence length (35)
+   
    `-q` phred score of 20
-   `-o` is the output file name.
+   
+   `-o` is the output file name
 
    *Output:*
-
    The `cutadapt`  will generated trimmed files into the **reads/filtered_reads** folder:
 
    ```bash
@@ -292,7 +303,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 
-2. ##### **Perform reference alignment using genome sequence (reference_based_alignment.sh)**
+4. ##### **Perform reference alignment using genome sequence (reference_based_alignment.sh)**
 
    Aligning reads to genome can be challenging due to millions of reads, small read size (2nd generation sequencing), sequencing errors and variation leads to mismatches and indels. In addition to that eukaryotic genome have introns , this means when genome is used a reference, aligner is aware of splice junction in the reference.
 
@@ -328,17 +339,22 @@ Under the defined project name root directory, four sub-directories are created.
       --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
       --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
    ```
+   
    *Description:*
-
+   
    `STAR` is the binary
-   `--runMode`  is set to `genomeGenerate`  which generate genome files
-   `--genomeDir`  is the path to output directory name
-   `--genomeFastaFiles`  is the path to genome fasta file with file name
+   
+   `--runMode` is set to `genomeGenerate`  which generate genome files
+   
+   `--genomeDir` is the path to output directory name
+   
+   `--genomeFastaFiles` is the path to genome fasta file with file name
+   
    `--sjdbGTFfile` is the path to the annotation file with file name
+   
    `--runThreadN` is number of threads (default used is 8)
 
    *Output:*
-
    The `STAR`  genome indexing will generated indexed genome files into the **data/STAR_Genome_Index** folder:
 
    ```bash
@@ -357,7 +373,7 @@ Under the defined project name root directory, four sub-directories are created.
    sjdbInfo.txt
    sjdbList.fromGTF.out.tab
    sjdbList.out.tab
-transcriptInfo.tab
+   transcriptInfo.tab
    ```
 
    *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
@@ -375,21 +391,30 @@ transcriptInfo.tab
       --outFileNamePrefix /analysis/mapping/star/SRR5858228_1_trimmed  \
       --outSAMtype BAM SortedByCoordinate
    ```
+   
    *Description:*
+   
    `STAR` is the binary
+   
    `--runMode`  is `alignReads`  which means map reads to the reference genome
+   
    `--runThreadN` is the number of threads (default used is 8)
+   
    `--genomeDir` is the path to genome indexed directory
+   
    `--readFilesIn` is the path to trimmed reads including file name
+   
    `--readFilesCommand` for gzipped files (*.gz) use zcat
+   
    `--sjdbGTFfile` is the path annotation file with file name
+   
    `--outFileNamePrefix`  is output prefix name with its path
-   `--outSAMtype` is the output sorted by coordinate, similar to samtools sort command.
-
+   
+   `--outSAMtype` is the output sorted by coordinate, similar to samtools sort command
+   
    *Output:*
-
    The `STAR`  genome alignment will generated in files into the **analysis/mapping/star** folder:
-
+   
    This is the output for one sample, similar files will be generated for other samples as well
 
    ```bash
@@ -428,14 +453,16 @@ transcriptInfo.tab
    ```
 
    *Description:*
-
+   
    `bowtie2-build` is the binary
+   
    `-f` is the path to genome fasta file with file name
+   
    `-p` is to launch a specified number of parallel search threads
+   
    `TOPHAT_Genome_Index` is the output directory created in **data** folder
 
    *Output:*
-
    The `bowtie-build`  genome indexing will generated indexed genome files into the **data/TOPHAT_Genome_Index** folder:
 
    ```bash
@@ -463,24 +490,30 @@ transcriptInfo.tab
    ```
 
    *Description:*
+   
    `tophat` is the binary
+   
    `-o`  is the name of the directory in which TopHat will write all of its outputs
+   
    `-p` is the number of threads  to align reads (default used is 8)
+   
    `-G` is the path to the annotation file with file name
+   
    `/data/TOPHAT_Genome_Index/GRCm38.p6.genome` is the path and prefix name of genome fasta file
+   
    `reads/filtered_reads/SRR5858228_1_trimmed.gz` is the path to trimmed reads including file name
 
-   *Output:*
 
+   *Output:*
    The `tophat`  genome alignment will generated in files into the **analysis/mapping/tophat** folder
 
    TopHat generated many files as listed below. Here is example output for one SRA ID SRR5858228:
 
-     - SRR5858228_1_trimmed_accepted_hits.bam  is the alignment bam file.
-     - SRR5858228_1_trimmed_junctions.bed contains the discovered exon junctions in BED format. A junction consists of two blocks, where each block is as long as the longest overhang of any read spanning the junction. The score is the number of alignments spanning the junction.
-     - SRR5858228_1_trimmed_insertions.bed contains the discovered insertions. chromLeft refers to the last genomic base before the insertion.
-     - SRR5858228_1_trimmed_deletions.bed contains the discovered deletions. chromLeft refers to the first genomic base of the deletion.
-     - SRR5858228_1_trimmed_align_summary.txt reports the alignment rate and how many reads and pairs had multiple alignments.
+     - **SRR5858228_1_trimmed_accepted_hits.bam** represents the alignment file in bam format.
+     - **SRR5858228_1_trimmed_junctions.bed** consists of a list of exon junctions in BED formation. An exon junction comprises two blocks where either block is as long as the longest overhang of any read present in the junction sequence. The score is the number of alignments identified for a junction sequence. 
+     - **SRR5858228_1_trimmed_insertions.bed** consists of a list of discovered insertions. In each case chromLeft represents the last genomic base before individual insertions.
+     - **SRR5858228_1_trimmed_deletions.bed** consists of a list of discovered deletions. In each case chromLeft represents the last genomic base before individual deletions.
+     - **SRR5858228_1_trimmed_align_summary.txt** contains a summary of alignment rates along with the number of  reads and pairs showing multiple alignments.
 
    *Note! For more detail read section XXXX in the book* and for parameters check [*TopHat2*](http://ccb.jhu.edu/software/tophat/manual.shtml).
 
@@ -492,11 +525,13 @@ transcriptInfo.tab
    ```
 
    *Description:*
-    `samtools ` is the binary
-    `index`  will index a coordinate-sorted BAM file for fast random access
+   
+   `samtools ` is the binary
+   
+   `index`  will index a coordinate-sorted BAM file for fast random access
+   
 
    *Output:*
-
    This command will index all the bam files and create `.bai` files in the respective **mapping** folder.
 
    *Note! For more detail read section XXXX in the book* and for parameters check [*samtools*](http://samtools.sourceforge.net/).
@@ -511,35 +546,37 @@ transcriptInfo.tab
    ```
 
    *Description:*
+   
    `bam_stat.py ` is the python script to calculate bam stats
+   
    `-i`  input bam file with its path
+   
    `-q`  is the mapping quality to determine uniquely mapped read
 
    RseQC produces table in the respective **mapping** folder where unique reads are considered if their mapping quality is more than 30.
 
-   *Output:*  
-
+   *Output:* 
    **SRR5858228_1_trimmed.Aligned.sortedByCoord.out._RSeQC_alignment_stats.txt** file will be created for SRA sample ID SRR5858228.
    
-   |    #=====================  #All numbers are READ count  #===================== |                              |
-   | :--------------------------------------------- | :----------------------------------------------------------- |
-   |Total records:                                  |             	                               72432644       |
-   |                                                |                                                              |
-   | QC failed:                                     |                                                           0  |
-   | Optical/PCR duplicate:                         |                                                           0  |
-   | Non primary hits                               |                                                    11660623  |
-   | Unmapped reads:                                |                                                            0 |
-   |mapq < mapq_cut (non-unique):                   |                                                     5935125  |
-   |                                                |                                                              |
-   | mapq >= mapq_cut (unique):                     |          					                           54836896  |
-   | Read-1:                                        |                            										 0  |
-   |Read-2:                                         |                            										 0  |
-   | Reads map to '+':                              |                								             27245688 |
-   | Reads map to '-':                              |              								               27591208  |
-   |  Non-splice reads:                             |           								                   42688777 |
-   | Splice reads:                                  |        									                   12148119 |
-   |  Reads mapped in proper pairs:				       |			                                                    0  |
-   |  Proper-paired reads map to different chrom:	 |	                                                          0  |
+   |    #=====================  #All numbers are READ count  #===================== |             |
+   | :--------------------------------------------- | :------------------------------------------ |
+   |Total records:                                  |             	              72432644       |
+   |                                                |                                             |
+   | QC failed:                                     |                                          0  |
+   | Optical/PCR duplicate:                         |                                          0  |
+   | Non primary hits                               |                                   11660623  |
+   | Unmapped reads:                                |                                           0 |
+   |mapq < mapq_cut (non-unique):                   |                                    5935125  |
+   |                                                |                                             |
+   | mapq >= mapq_cut (unique):                     |          					          54836896  |
+   | Read-1:                                        |                            				  0  |
+   |Read-2:                                         |                            				  0  |
+   | Reads map to '+':                              |                						  27245688 |
+   | Reads map to '-':                              |              							 27591208  |
+   |  Non-splice reads:                             |           								  42688777 |
+   | Splice reads:                                  |        									  12148119 |
+   |  Reads mapped in proper pairs:				       |			                                   0  |
+   |  Proper-paired reads map to different chrom:	 |	                                         0  |
 
 
    *Note! For more detail read section XXXX in the book* and for parameters check [*RseQC*](http://rseqc.sourceforge.net/).
@@ -586,15 +623,20 @@ transcriptInfo.tab
    ```
 
    *Description:*
+   
    `bedtools` is the binary
+   
    `intersect` allows one to screen for overlaps between two sets of genomic features
-   `-S`  is require for different strandedness.
+   
+   `-S`  is require for different strandedness
+   
    `-c`  is for each entry in genomic features A, report the number of hits in genomic features B while restricting to `-f` (-f is  for minimum overlap required as a fraction of A. Default is 1E-9 (i.e. 1bp))
+   
    `-a`  is gff annotation file where each genomic features in A is compared to genomic features B in search of overlaps
+   
    `-b` is the input bam file with its path
 
    *Output:*
-
    Output will be generated in **analysis/quantification/bedtools-count** folder for each file. In the end all the  bedtools generated output files are merged to created final file **Read_per_features_combined.csv** in same folder which will be the input for differential expression analysis.
 
    *Note! For more details about bedtools read section XXX in the book and for parameters check [bedtools](https://bedtools.readthedocs.io/en/latest/)*
@@ -617,16 +659,22 @@ transcriptInfo.tab
    ```
 
    *Description:*
+   
    `htseq-count` is the binary
+   
    `-f`  is the format of the input data.
+   
    `-a `  will skip all reads with MAPQ alignment quality lower than the given minimum value (default: 10).
+   
    `-m` is mode to handle reads overlapping more than one feature. In this case its `intersect-strict`.
+   
    `-s` is set whether the data is from a strand-specific assay. For `stranded=no`, a read is considered overlapping with a feature regardless of whether it is mapped to the same or the opposite strand as the feature
+   
    `-t ` is the feature type (3rd column in GFF file) to be used, all features of other type are ignored (default, suitable for RNA-Seq analysis using an [GENCODE GTF](https://www.gencodegenes.org/) file: `exon`)
+   
    `-i`  is the attribute to be used as feature ID. The default, suitable for RNA-Seq analysis using an GENCODE GTF file, is `gene_id`.
 
    *Output:*
-
    The outputs will be generated in **analysis/quantification/htseq-count folder**. In the end all the  HTSeq generated output files are combined to created final file **Read_per_features_combined.csv** in same folder which will be used as an input for differential expression analysis.
 
    *Note! For more details about HTSeq read section XXX in the book and for parameters check [HTSeq](https://htseq.readthedocs.io/en/release_0.9.1/count.html#count)*
@@ -643,14 +691,18 @@ transcriptInfo.tab
    ```
 
    *Description:*
+   
    `cufflinks` is the binary
+   
    `-G` is the path to the annotation file with file name
+   
    `-b` is the path to genome fasta file with file name
+   
    `-p` is the number threads
+   
    `-o` is the name of the directory in which Cuffdiff will write all of its output
 
    *Output:*
-
    The outputs will be generated in **analysis/quantification/cufflinks-count folder**. The output consists of transcript and gene-level FPKM-tracking files, which contain FPKM values and their confidence intervals. FPKM tracking files are also produced when a set of samples is tested for differential expression using Cuffdiff.
 
    *Note! For more details about Cufflinks read section XXX in the book and for parameters check [Cufflinks](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjBgZnNsPnnAhWJ5KQKHX-WDUEQFjAAegQIBBAB&url=http%3A%2F%2Fcole-trapnell-lab.github.io%2Fcufflinks%2Fcufflinks%2F&usg=AOvVaw1JN_NkATlDD-FIYoGiXJFf).*
@@ -686,15 +738,20 @@ transcriptInfo.tab
    ```
 
    *Description:*
+   
    `-p` is to set the paired end information. If the data is from a paired-end sequencing run, you need to add the option `-p yes`
+   
    `-s` If you have used a library preparation protocol that does not preserve  strand information (i.e., reads from a given gene can appear equally  likely on either strand), you need to inform the script by specifying  the option `-s no`
+   
    `-r` is to indicate whether your data is sorted by alignment position or by read name
+   
    `-f` input reads format
+   
    `-a` to specify the minimum alignment quality. All reads with a lower quality than specified (with default `-a 10`) are skipped.
 
    *Output:*
-
    The outputs for both the steps will be generated in **analysis/quantification/dexseq-count folder** with files for all the samples.
+
 
    *Note! For more details about DEXSeq read section XXX in the book and for parameters check [DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html).*
 
@@ -733,10 +790,16 @@ transcriptInfo.tab
    ```
 
    *Description:*
+   
    `--genecount` is combined generated from bedtools or htseq along with its path
+   
    `--metadata` is the sample information file
+   
    `--condition` is the column in the metadata data file that will be used for pairwise comparision using DESeq2.
+   
    `--outputpath` is the path to the output directory where the result table and plots will be generated.
+   
+   *Output:*
    Differentially expressed outfiles for bedtools and HTSeq are generated in **analysis/DE/deseq2/**
 
    ```bash
@@ -759,6 +822,7 @@ transcriptInfo.tab
 
    *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).*
 
+
    b. <u>Differential expression for count data generated using *DEXSeq*:</u>
 
    ```bash
@@ -769,14 +833,17 @@ transcriptInfo.tab
      --outputpath analysis/DE/dexseq/
    ```
 
-   *Description:*
-   `--exoncountpath`  is the dexseq generated exon count file path
+   *Description:* 
+   
+   `--exoncountpath` is the dexseq generated exon count file path
+   
    `--gffFile` is the dexseq generated gff file with its path
+   
    `--metadata` is the sample information file
+   
    `--outputpath` is the path to the output directory where the result table and plots will be generated.
 
    *Output:*
-
    Differentially expressed output files for bedtools and HTSeq are generated in **analysis/DE/dexseq/**
 
    ```
@@ -787,10 +854,11 @@ transcriptInfo.tab
    ```
 
    - **diffexpr-results_dexseq.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats.
-   - **dispersion_plot_dexseq.pdf**
+   - **dispersion_plot_dexseq.pdf** 
    - **ma_plot_dexseq.pdf** XXXXX
 
    *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html)*
+
 
    c. <u>Differential expression for count data generated using *cufflinks*:</u>
 
@@ -805,11 +873,17 @@ transcriptInfo.tab
    ```
 
    *Description:*
+   
    `-o` path to the output folder
+   
    `-L` lists the labels to be used as “conditions”
+   
    `-FDR` cutoff for false discovery rate for the DE analysis
+   
    `-u` path to annotation file
+   
    `-p` is the number threads
+   
    `BAMLIST` is list of all bam file in comma format
 
 
