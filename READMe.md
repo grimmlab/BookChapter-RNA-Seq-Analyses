@@ -330,55 +330,57 @@ Under the defined project name root directory, four sub-directories are created.
    | Visualization             | *IGV* (g.)                                                   | *IGV*                                                        |
 
   __*a. Genome indexing using STAR:*__
-      ```bash
-      STAR \
-         --runThreadN 8 \
-         --runMode genomeGenerate \
-         --genomeDir data/STAR_Genome_Index \
-         --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
-         --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
-      ```
+  
+   ```bash
+   STAR \
+      --runThreadN 8 \
+      --runMode genomeGenerate \
+      --genomeDir data/STAR_Genome_Index \
+      --genomeFastaFiles data/mouse-gencode-version-24/GRCm38.p6.genome.fa \
+      --sjdbGTFfile data/mouse-gencode-version-24/gencode.vM24.annotation.gtf
+    ```
+    
+    *Description:*
 
-      *Description:*
+    `STAR` is the binary
 
-      `STAR` is the binary
+    `--runMode` is set to `genomeGenerate`  which generate genome files
 
-      `--runMode` is set to `genomeGenerate`  which generate genome files
+    `--genomeDir` is the path to output directory name
 
-      `--genomeDir` is the path to output directory name
+    `--genomeFastaFiles` is the path to genome fasta file with file name
 
-      `--genomeFastaFiles` is the path to genome fasta file with file name
+    `--sjdbGTFfile` is the path to the annotation file with file name
 
-      `--sjdbGTFfile` is the path to the annotation file with file name
+    `--runThreadN` is number of threads (default used is 8)
 
-      `--runThreadN` is number of threads (default used is 8)
+    *Output:*
+    The `STAR`  genome indexing will generated indexed genome files into the **data/STAR_Genome_Index** folder:
 
-      *Output:*
-      The `STAR`  genome indexing will generated indexed genome files into the **data/STAR_Genome_Index** folder:
+    ```bash
+    ~/RNASeq_project/data/STAR_Genome_Index$ls -1
+    Genome
+    SA
+    SAindex
+    chrLength.txt
+    chrName.txt
+    chrNameLength.txt
+    chrStart.txt
+    exonGeTrInfo.tab
+    exonInfo.tab
+    geneInfo.tab
+    genomeParameters.txt
+    sjdbInfo.txt
+    sjdbList.fromGTF.out.tab
+    sjdbList.out.tab
+    transcriptInfo.tab
+    ```
 
-      ```bash
-      ~/RNASeq_project/data/STAR_Genome_Index$ls -1
-      Genome
-      SA
-      SAindex
-      chrLength.txt
-      chrName.txt
-      chrNameLength.txt
-      chrStart.txt
-      exonGeTrInfo.tab
-      exonInfo.tab
-      geneInfo.tab
-      genomeParameters.txt
-      sjdbInfo.txt
-      sjdbList.fromGTF.out.tab
-      sjdbList.out.tab
-      transcriptInfo.tab
-      ```
-
-      *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
+    *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
 
 
   __*b. Alignment using STAR:*__
+  
       ```bash
        STAR \
          --runMode alignReads \
