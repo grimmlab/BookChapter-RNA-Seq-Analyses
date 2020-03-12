@@ -162,7 +162,7 @@ Under the defined project name root directory, four sub-directories are created.
 
    This script contains three main sub-steps:
 
-   *__a. Downloading the publically available data__*
+   __*a. Downloading the publically available data*__
    
    Publically available data from PMID: [28738885](https://www.ncbi.nlm.nih.gov/pubmed/28738885) is used for the analysis purpose. In the first step data is downloaded using `fastq-dump` binary from SRA toolkit in the **tools** folder.
 
@@ -208,7 +208,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 
-   *__b. Quality assessment of downloaded data:__*
+   __*b. Quality assessment of downloaded data:*__
 
    The downloaded SRA fastq files are then assessed for sequence quality using `fastqc` program.
 
@@ -329,7 +329,7 @@ Under the defined project name root directory, four sub-directories are created.
    | Alignment stats           | [*RseQC*](http://rseqc.sourceforge.net/) (f.)                | [*RseQC*](http://rseqc.sourceforge.net/)                     |
    | Visualization             | *IGV* (g.)                                                   | *IGV*                                                        |
 
-  *__a.Genome indexing using STAR:__*
+  __*a. Genome indexing using STAR:*__
 
    ```bash
    STAR \
@@ -378,7 +378,7 @@ Under the defined project name root directory, four sub-directories are created.
 
    *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
 
-  *__b.Alignment using STAR:__*
+  __*b. Alignment using STAR:*__
    ```bash
     STAR \
       --runMode alignReads \
@@ -440,7 +440,7 @@ Under the defined project name root directory, four sub-directories are created.
 
    *Note! For more detail read section XXXX in the book* and for parameters check *[STAR](http://labshare.cshl.edu/shares/gingeraslab/www-data/dobin/STAR/STAR.posix/doc/STARmanual.pdf)*
 
-   c. <u>Genome indexing using bowtie for TopHat2:</u>
+   __*c. Genome indexing using bowtie for TopHat2:*__
 
    TopHat2 uses bowtie2 (which is gapped aligner) for genome indexing
 
@@ -477,7 +477,7 @@ Under the defined project name root directory, four sub-directories are created.
 
    *Note! Bowtie2 itself is not able to perform spliced alignments. Bowtie2 is known for its speed and small-memory efficiency because it index the reference genome using an FM index which is a [Burrows–Wheeler transform](https://en.wikipedia.org/wiki/Burrows–Wheeler_transform) method. For more detail read section XXXX in the book.*
 
-   d. <u>Alignment using TopHat2:</u>
+   __*d. Alignment using TopHat2:*__
 
    ```bash
    tophat \
@@ -516,7 +516,7 @@ Under the defined project name root directory, four sub-directories are created.
 
    *Note! For more detail read section XXXX in the book* and for parameters check [*TopHat2*](http://ccb.jhu.edu/software/tophat/manual.shtml).
 
-   e. <u>BAM file indexing for both STAR or TopHat2</u>:
+   __*e. BAM file indexing for both STAR or TopHat2:*__
 
    ```bash
    samtools \
@@ -535,7 +535,7 @@ Under the defined project name root directory, four sub-directories are created.
 
    *Note! For more detail read section XXXX in the book* and for parameters check [*samtools*](http://samtools.sourceforge.net/).
 
-   f. <u>Generate stats for alignment</u>:
+   __*f. Generate stats for alignment:*__
 
    ```bash
    python3 bam_stat.py \
@@ -582,7 +582,7 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 
-   g. <u>Visualization of alignment (BAM) files</u>:
+   __*g. Visualization of alignment (BAM) files: *__
 
    The indexed bam files along with genome and annotation can be loaded into several genome browsers, including the Integrative Genomics Viewer IGV `IGV` . Explaining this is beyond the scope of this chapter and recommend to go through https://software.broadinstitute.org/software/igv/UserGuide.
 
@@ -610,7 +610,7 @@ Under the defined project name root directory, four sub-directories are created.
    | per exon                                | *[DEXSeq](https://bioconductor.org/packages/release/bioc/html/DEXSeq.html)* (d.) |
 
 
-   a. <u>Counting reads per gene using *bedtools*:</u>
+   __*a. Counting reads per gene using *bedtools*:*__
 
    ```bash
    bedtools intersect \
@@ -642,8 +642,7 @@ Under the defined project name root directory, four sub-directories are created.
    *Note! For more details about bedtools read section XXX in the book and for parameters check [bedtools](https://bedtools.readthedocs.io/en/latest/)*
 
 
-
-   b. <u>Counting reads per gene using *HTSeq*:</u>
+   __*b. Counting reads per gene using *HTSeq*:*__
 
    ```bash
    htseq-count \
@@ -680,7 +679,7 @@ Under the defined project name root directory, four sub-directories are created.
    *Note! For more details about HTSeq read section XXX in the book and for parameters check [HTSeq](https://htseq.readthedocs.io/en/release_0.9.1/count.html#count)*
 
 
-   c. <u>Counting reads per transcript using *cufflinks*:</u>
+   __*c. Counting reads per transcript using *cufflinks*:*__
 
    ```bash
    cufflinks \
@@ -709,7 +708,7 @@ Under the defined project name root directory, four sub-directories are created.
    *Note! For more details about Cufflinks read section XXX in the book and for parameters check [Cufflinks](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=2ahUKEwjBgZnNsPnnAhWJ5KQKHX-WDUEQFjAAegQIBBAB&url=http%3A%2F%2Fcole-trapnell-lab.github.io%2Fcufflinks%2Fcufflinks%2F&usg=AOvVaw1JN_NkATlDD-FIYoGiXJFf).*
    
    
-   d. <u>Counting reads per  exon using *DEXSeq*:</u>
+   __*d. Counting reads per  exon using *DEXSeq*:*__
 
    The initial steps of a *[DEXSeq](https://bioconductor.org/packages/3.11/DEXSeq)* analysis are done using two Python scripts. Importantly, these preprocessing steps can also be done using tools equivalent to these Python scripts, for example, using *[GenomicRanges](https://bioconductor.org/packages/3.11/GenomicRanges)* infrastructure ([10.2](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html#preprocessing-within-r)) or *[Rsubread](https://bioconductor.org/packages/3.11/Rsubread)* ([10.3](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html#preprocessing-using-featurecounts)). The following two steps describe how to do this steps using the Python scripts that are provided within *[DEXSeq](https://bioconductor.org/packages/3.11/DEXSeq)*.
 
@@ -777,7 +776,7 @@ Under the defined project name root directory, four sub-directories are created.
    | per transcript for cufflinks output | *[cuffdiff](http://cole-trapnell-lab.github.io/cufflinks/cuffdiff/)* (c.) -> Differentially expressed isoforms |
 
 
-   a. <u>Differential expression for count data generated using *bedtools/HTSeq*:</u>
+   __*a. Differential expression for count data generated using *bedtools/HTSeq*:*__
 
    This analysis of differential expression (DE) will identify of genes that are expressed in significantly different quantities in distinct groups biological conditions (vehicle_treated vs. drug_treated).
 
@@ -823,7 +822,7 @@ Under the defined project name root directory, four sub-directories are created.
    *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).*
 
 
-   b. <u>Differential expression for count data generated using *DEXSeq*:</u>
+   __*b. Differential expression for count data generated using *DEXSeq*:*__
 
    ```bash
    Rscript DE_dexseq_exon.R \
@@ -860,7 +859,7 @@ Under the defined project name root directory, four sub-directories are created.
    *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html)*
 
 
-   c. <u>Differential expression for count data generated using *cufflinks*:</u>
+  __*c. Differential expression for count data generated using *cufflinks*:*__
 
    ```bash
    cuffdiff \
