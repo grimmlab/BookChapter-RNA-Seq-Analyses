@@ -109,7 +109,7 @@ resdata <- merge(as.data.frame(res), as.data.frame(counts(dds, normalized=TRUE))
 names(resdata)[1] <- "Attributes"
 head(resdata)
 ## Write results
-write.table(resdata,sep = "\t",row.names=FALSE,quote=F, file=paste(outputFolder,comp,"_diffexpr-results_htseq.csv",sep=""))
+write.table(resdata,sep = "\t",row.names=FALSE,quote=F, file=paste(outputFolder,comp,"_diffexpr-results_htseq.txt",sep=""))
 
 ## Examine plot of p-values
 #hist(res$pvalue, breaks=50, col="grey")
