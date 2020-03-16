@@ -583,7 +583,7 @@ Under the defined project name root directory, four sub-directories are created.
       *Note! For more detail read section XXXX in the book* and for parameters check [*RseQC*](http://rseqc.sourceforge.net/).
       
       
-      __*g. Visualization of alignment (BAM) files: *__
+      __*g. Visualization of alignment (BAM) files:*__
       
       The indexed bam files along with genome and annotation can be loaded into several genome browsers, including the Integrative Genomics Viewer IGV `IGV` . Explaining this is beyond the scope of this chapter and recommend to go through https://software.broadinstitute.org/software/igv/UserGuide.
 
