@@ -758,150 +758,150 @@ Under the defined project name root directory, four sub-directories are created.
 
 
 6. #### **Differential Expression (differential_expression.sh)**
-
-Differential expression (DE) analysis refers to the identification of genes (or other types of genomic features, such as, transcripts or exons) that are expressed in significantly different quantities in distinct groups of samples, be it biological conditions (drug-treated vs. controls), diseased vs. healthy individuals, different tissues, different stages of development, or something else.
-This step will perform quantification on alignment files generated form reference based RNASeq alignment. This can be done by running the shell script:
-
-```bash
-   $./differential_expression.sh
-```
-
-The choice of `QUANT_COUNT` set in the `project_conf.sh` file determines the differential expression tool. The table below shows the differential expression tool used for the generated count data:
-
-| Generated count data                | Differential expression tools                                |
-| :---------------------------------- | :----------------------------------------------------------- |
-| per gene for bedtools output        | *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)* (a.) -> Differentially expressed genes |
-| per gene for HTSeq output           | *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)* -> Differentially expressed genes |
-| per exon for DEXSeq output          | *[DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html)* (b.) -> Differentially expressed exon |
-| per transcript for cufflinks output | *[cuffdiff](http://cole-trapnell-lab.github.io/cufflinks/cuffdiff/)* (c.) -> Differentially expressed isoforms |
-
-   __*a. Differential expression for count data generated using *bedtools/HTSeq*:*__
    
-   This analysis of differential expression (DE) will identify of genes that are expressed in significantly different quantities in distinct groups biological conditions (vehicle_treated vs. drug_treated).
-   
-   ```bash
-   Rscript DE_deseq_genes_bedtools.R \
-      --genecount analysis/quantification/bedtools-count/Read_per_features_combined.csv \
-      --metadata metadata.txt \
-      --condition condition \
-      --outputpath analysis/DE/deseq2/
-   ```
-
-   *Description:*
-   
-   `--genecount` is combined generated from bedtools or htseq along with its path
-   
-   `--metadata` is the sample information file
-   
-   `--condition` is the column in the metadata data file that will be used for pairwise comparision using DESeq2.
-   
-   `--outputpath` is the path to the output directory where the result table and plots will be generated.
-   
-   *Output:*
-   Differentially expressed outfiles for bedtools and HTSeq are generated in **analysis/DE/deseq2/**
+   Differential expression (DE) analysis refers to the identification of genes (or other types of genomic features, such as, transcripts or exons) that are expressed in significantly different quantities in distinct groups of samples, be it biological conditions (drug-treated vs. controls), diseased vs. healthy individuals, different tissues, different stages of development, or something else.
+   This step will perform quantification on alignment files generated form reference based RNASeq alignment. This can be done by running the shell script:
 
    ```bash
-   ~/RNASeq_project/analysis/DE/deseq2$ls -1
-   PCA-samples_bedtools.pdf
-   diffexpr-maplot_bedtools.pdf
-   pvalue_histogram_50_bedtools.pdf
-   qc-dispersions_bedtools.pdf
-   qc-heatmap-samples_bedtools.pdf
-   vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv
+      $./differential_expression.sh
    ```
 
-   - **vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats. The counts are normalized to rlog normalization.
-   - **PCA-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXX
-   - **diffexpr-maplot_bedtools.pdf**  XXXXXXXXXXXXXXXXXX
-   - **pvalue_histogram_50_bedtools.pdf** XXXXXXXXXXXXXXXXXX
-   - **qc-dispersions_bedtools.pdf** XXXXXXXXXXXXXXXXXX
-   - **qc-heatmap-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXX
-   
-   *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).*
-   
-   
-   __*b. Differential expression for count data generated using *DEXSeq*:*__
+   The choice of `QUANT_COUNT` set in the `project_conf.sh` file determines the differential expression tool. The table below shows the differential expression tool used for the generated count data:
 
-   ```bash
-   Rscript DE_dexseq_exon.R \
-     --exoncountpath analysis/quantification/dexseq-count/ \
-     --gffFile analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff \
-     --metadata metadata.txt \
-     --outputpath analysis/DE/dexseq/
-   ```
+   | Generated count data                | Differential expression tools                                |
+   | :---------------------------------- | :----------------------------------------------------------- |
+   | per gene for bedtools output        | *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)* (a.) -> Differentially expressed genes |
+   | per gene for HTSeq output           | *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)* -> Differentially expressed genes |
+   | per exon for DEXSeq output          | *[DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html)* (b.) -> Differentially expressed exon |
+   | per transcript for cufflinks output | *[cuffdiff](http://cole-trapnell-lab.github.io/cufflinks/cuffdiff/)* (c.) -> Differentially expressed isoforms |
 
-   *Description:* 
-   
-   `--exoncountpath` is the dexseq generated exon count file path
-   
-   `--gffFile` is the dexseq generated gff file with its path
-   
-   `--metadata` is the sample information file
-   
-   `--outputpath` is the path to the output directory where the result table and plots will be generated.
+      __*a. Differential expression for count data generated using *bedtools/HTSeq*:*__
 
-   *Output:*
-   Differentially expressed output files for bedtools and HTSeq are generated in **analysis/DE/dexseq/**
+      This analysis of differential expression (DE) will identify of genes that are expressed in significantly different quantities in distinct groups biological conditions (vehicle_treated vs. drug_treated).
 
-   ```
-   ~/RNASeq_project/analysis/DE/dexseq2$ls -1
-   diffexpr-results_dexseq.csv
-   dispersion_plot_dexseq.pdf
-   ma_plot_dexseq.pdf
-   ```
+      ```bash
+      Rscript DE_deseq_genes_bedtools.R \
+         --genecount analysis/quantification/bedtools-count/Read_per_features_combined.csv \
+         --metadata metadata.txt \
+         --condition condition \
+         --outputpath analysis/DE/deseq2/
+      ```
 
-   - **diffexpr-results_dexseq.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats.
-   - **dispersion_plot_dexseq.pdf** 
-   - **ma_plot_dexseq.pdf** XXXXX
+      *Description:*
 
-   *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html)*
-   
-   
-   __*c. Differential expression for count data generated using *cufflinks*:*__
+      `--genecount` is combined generated from bedtools or htseq along with its path
 
-   ```bash
-   cuffdiff \
-    -o analysis/DE/cuffdiff \
-    -L vt,dt \
-    --FDR 0.01 \
-    -u data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
-    -p 8 \
-    BAMLIST
-   ```
+      `--metadata` is the sample information file
 
-   *Description:*
-   
-   `-o` path to the output folder
-   
-   `-L` lists the labels to be used as “conditions”
-   
-   `-FDR` cutoff for false discovery rate for the DE analysis
-   
-   `-u` path to annotation file
-   
-   `-p` is the number threads
-   
-   `BAMLIST` is list of all bam file in comma format
+      `--condition` is the column in the metadata data file that will be used for pairwise comparision using DESeq2.
+
+      `--outputpath` is the path to the output directory where the result table and plots will be generated.
+
+      *Output:*
+      Differentially expressed outfiles for bedtools and HTSeq are generated in **analysis/DE/deseq2/**
+
+      ```bash
+      ~/RNASeq_project/analysis/DE/deseq2$ls -1
+      PCA-samples_bedtools.pdf
+      diffexpr-maplot_bedtools.pdf
+      pvalue_histogram_50_bedtools.pdf
+      qc-dispersions_bedtools.pdf
+      qc-heatmap-samples_bedtools.pdf
+      vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv
+      ```
+
+      - **vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats. The counts are normalized to rlog normalization.
+      - **PCA-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXX
+      - **diffexpr-maplot_bedtools.pdf**  XXXXXXXXXXXXXXXXXX
+      - **pvalue_histogram_50_bedtools.pdf** XXXXXXXXXXXXXXXXXX
+      - **qc-dispersions_bedtools.pdf** XXXXXXXXXXXXXXXXXX
+      - **qc-heatmap-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXX
+
+      *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).*
+
+
+      __*b. Differential expression for count data generated using *DEXSeq*:*__
+
+      ```bash
+      Rscript DE_dexseq_exon.R \
+        --exoncountpath analysis/quantification/dexseq-count/ \
+        --gffFile analysis/quantification/dexseq-count/DEXSEQ_GTF_annotation.gff \
+        --metadata metadata.txt \
+        --outputpath analysis/DE/dexseq/
+      ```
+
+      *Description:* 
+
+      `--exoncountpath` is the dexseq generated exon count file path
+
+      `--gffFile` is the dexseq generated gff file with its path
+
+      `--metadata` is the sample information file
+
+      `--outputpath` is the path to the output directory where the result table and plots will be generated.
+
+      *Output:*
+      Differentially expressed output files for bedtools and HTSeq are generated in **analysis/DE/dexseq/**
+
+      ```
+      ~/RNASeq_project/analysis/DE/dexseq2$ls -1
+      diffexpr-results_dexseq.csv
+      dispersion_plot_dexseq.pdf
+      ma_plot_dexseq.pdf
+      ```
+
+      - **diffexpr-results_dexseq.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats.
+      - **dispersion_plot_dexseq.pdf** 
+      - **ma_plot_dexseq.pdf** XXXXX
+
+      *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html)*
+
+
+      __*c. Differential expression for count data generated using *cufflinks*:*__
+
+      ```bash
+      cuffdiff \
+       -o analysis/DE/cuffdiff \
+       -L vt,dt \
+       --FDR 0.01 \
+       -u data/mouse-gencode-version-24/gencode.vM24.annotation.gtf \
+       -p 8 \
+       BAMLIST
+      ```
+
+      *Description:*
+
+      `-o` path to the output folder
+
+      `-L` lists the labels to be used as “conditions”
+
+      `-FDR` cutoff for false discovery rate for the DE analysis
+
+      `-u` path to annotation file
+
+      `-p` is the number threads
+
+      `BAMLIST` is list of all bam file in comma format
 
 
 **In the end these script will create a folders and sub-folders based on the choice of analysis on the current data as shown below:**
 
-```bash
-|-- RNASeq_project
-|   | analysis
-|   |   |-- mapping
-|   |   |   |-- tophat/star
-|   |   |-- quantification
-|   |   |   |-- bedtools-count/cufflinks-count/dexseq-count/htseq-count
-|   |   |-- DE
-|   |   |   |-- deseq2/dexseq/cuffdiff
-|   | data
-|   |   |-- mouse-gencode-version-24/
-|   |   |-- STAR_Genome_Index/TOPHAT_Genome_Index/
-|   | reads
-|   |   |-- rawreads
-|   |   |-- rawreads_QA_stats
-|   |   |-- filtered_reads
-|   | tools
-|   |   |-- DEXSeq/FastQC/STAR-2.7.3a/bedtools2/bowtie2/cufflinks/cutadapt/htseq/rseqqc/samtools/sratoolkit/tophat
-```
+   ```bash
+   |-- RNASeq_project
+   |   | analysis
+   |   |   |-- mapping
+   |   |   |   |-- tophat/star
+   |   |   |-- quantification
+   |   |   |   |-- bedtools-count/cufflinks-count/dexseq-count/htseq-count
+   |   |   |-- DE
+   |   |   |   |-- deseq2/dexseq/cuffdiff
+   |   | data
+   |   |   |-- mouse-gencode-version-24/
+   |   |   |-- STAR_Genome_Index/TOPHAT_Genome_Index/
+   |   | reads
+   |   |   |-- rawreads
+   |   |   |-- rawreads_QA_stats
+   |   |   |-- filtered_reads
+   |   | tools
+   |   |   |-- DEXSeq/FastQC/STAR-2.7.3a/bedtools2/bowtie2/cufflinks/cutadapt/htseq/rseqqc/samtools/sratoolkit/tophat
+   ```
