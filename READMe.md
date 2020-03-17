@@ -759,28 +759,26 @@ Under the defined project name root directory, four sub-directories are created.
 
 6. #### **Differential Expression (differential_expression.sh)**
 
-   Differential expression (DE) analysis refers to the identification of genes (or other types of genomic features, such as, transcripts or exons) that are expressed in significantly different quantities in distinct groups of samples, be it biological conditions (drug-treated vs. controls), diseased vs. healthy individuals, different tissues, different stages of development, or something else.
+Differential expression (DE) analysis refers to the identification of genes (or other types of genomic features, such as, transcripts or exons) that are expressed in significantly different quantities in distinct groups of samples, be it biological conditions (drug-treated vs. controls), diseased vs. healthy individuals, different tissues, different stages of development, or something else.
+This step will perform quantification on alignment files generated form reference based RNASeq alignment. This can be done by running the shell script:
 
-   This step will perform quantification on alignment files generated form reference based RNASeq alignment. This can be done by running the shell script:
-
-   ```bash
+```bash
    $./differential_expression.sh
-   ```
+```
 
-   The choice of `QUANT_COUNT` set in the `project_conf.sh` file determines the differential expression tool. The table below shows the differential expression tool used for the generated count data:
+The choice of `QUANT_COUNT` set in the `project_conf.sh` file determines the differential expression tool. The table below shows the differential expression tool used for the generated count data:
 
-   | Generated count data                | Differential expression tools                                |
-   | :---------------------------------- | :----------------------------------------------------------- |
-   | per gene for bedtools output        | *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)* (a.) -> Differentially expressed genes |
-   | per gene for HTSeq output           | *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)* -> Differentially expressed genes |
-   | per exon for DEXSeq output          | *[DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html)* (b.) -> Differentially expressed exon |
-   | per transcript for cufflinks output | *[cuffdiff](http://cole-trapnell-lab.github.io/cufflinks/cuffdiff/)* (c.) -> Differentially expressed isoforms |
-
+| Generated count data                | Differential expression tools                                |
+| :---------------------------------- | :----------------------------------------------------------- |
+| per gene for bedtools output        | *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)* (a.) -> Differentially expressed genes |
+| per gene for HTSeq output           | *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)* -> Differentially expressed genes |
+| per exon for DEXSeq output          | *[DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html)* (b.) -> Differentially expressed exon |
+| per transcript for cufflinks output | *[cuffdiff](http://cole-trapnell-lab.github.io/cufflinks/cuffdiff/)* (c.) -> Differentially expressed isoforms |
 
    __*a. Differential expression for count data generated using *bedtools/HTSeq*:*__
-
+   
    This analysis of differential expression (DE) will identify of genes that are expressed in significantly different quantities in distinct groups biological conditions (vehicle_treated vs. drug_treated).
-
+   
    ```bash
    Rscript DE_deseq_genes_bedtools.R \
       --genecount analysis/quantification/bedtools-count/Read_per_features_combined.csv \
@@ -813,16 +811,15 @@ Under the defined project name root directory, four sub-directories are created.
    ```
 
    - **vehicle_treated_vs_drug_treated_diffexpr-results_bedtools.csv** is the final table from deseq2 for the pairwise comparison between the two conditions with stats. The counts are normalized to rlog normalization.
-
    - **PCA-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXX
    - **diffexpr-maplot_bedtools.pdf**  XXXXXXXXXXXXXXXXXX
    - **pvalue_histogram_50_bedtools.pdf** XXXXXXXXXXXXXXXXXX
    - **qc-dispersions_bedtools.pdf** XXXXXXXXXXXXXXXXXX
    - **qc-heatmap-samples_bedtools.pdf** XXXXXXXXXXXXXXXXXX
-
+   
    *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DESeq2](https://bioconductor.org/packages/release/bioc/vignettes/DESeq2/inst/doc/DESeq2.html).*
-
-
+   
+   
    __*b. Differential expression for count data generated using *DEXSeq*:*__
 
    ```bash
@@ -858,9 +855,9 @@ Under the defined project name root directory, four sub-directories are created.
    - **ma_plot_dexseq.pdf** XXXXX
 
    *Note! For more details about differential expression read section XXX in the book and for analysis details check* *[DEXSeq](https://bioconductor.org/packages/devel/bioc/vignettes/DEXSeq/inst/doc/DEXSeq.html)*
-
-
-  __*c. Differential expression for count data generated using *cufflinks*:*__
+   
+   
+   __*c. Differential expression for count data generated using *cufflinks*:*__
 
    ```bash
    cuffdiff \
