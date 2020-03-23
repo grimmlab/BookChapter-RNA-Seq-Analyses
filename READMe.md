@@ -701,7 +701,7 @@ Under the defined project name root directory, four sub-directories are created.
    
    `-p` is the number threads
    
-   `-o` is the name of the directory in which Cuffdiff will write all of its output
+   `-o` is the name of the directory containing all of its generated output
 
    *Output:*
    The outputs will be generated in **analysis/quantification/cufflinks-count folder**. The output consists of transcript and gene-level FPKM-tracking files, which contain FPKM values and their confidence intervals. FPKM tracking files are also produced when a set of samples is tested for differential expression using Cuffdiff.
