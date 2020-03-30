@@ -3,7 +3,7 @@
 # Design and Analysis of RNA Sequencing Data
 
 This is the associated GitHub page for the book chapter *Design and Analysis of RNA Sequencing Data* *Bharti and Grimm et. al. 2020*. A comprehensive outline of RNASeq data analysis including quality assessment, pre-processing alignment/mapping of reads, quantification of genes and isoforms and differential expression (DE) analysis is provided. Step wise optimized codes and data formats alongside brief description and references to the corresponding sections of the book chapter are also provided. Please go through the steps below before you begin to use the workflows.
-![Workflow](https://github.com/grimmlab/Chapter_RNASeq-analyses/RNASeq_workflow.jpg){width=40px height=400px}
+![Workflow](https://github.com/grimmlab/Chapter_RNASeq-analyses/RNASeq_workflow.jpg = 250x250)
 
 
 
