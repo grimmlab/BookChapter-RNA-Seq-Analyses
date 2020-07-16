@@ -46,7 +46,7 @@ Without these the workflow will fail to run. </p>
 ### Get the workflow from git using:  
 
 ```bash
-git clone https://github.com/grimmlab/Chapter_RNASeq-analyses.git
+git clone https://github.com/grimmlab/BookChapter-RNA-Seq-Analyses.git
 ```
 
 After cloning the repository, you should have the following files in your repo directory:
